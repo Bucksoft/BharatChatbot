@@ -28,10 +28,22 @@ const Sidebar = () => {
     <main
       className={`rounded-3xl min-h-full text-sm overflow-hidden border-r relative  ${
         darkMode
-          ? " bg-[#040404] text-white  "
+          ? " bg-[#040404] text-white  border-zinc-700"
           : "bg-zinc-100 text-black border-zinc-300 "
       }   backdrop-blur-lg shadow-lg `}
     >
+      <svg
+        className="absolute top-0 left-0 -z-10 w-full h-full"
+        viewBox="0 0 800 310"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#60e096"
+          fillOpacity="0.4"
+          d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+        />
+      </svg>
       <div className="flex items-center justify-between px-2  ">
         <h1 className="flex items-center justify-center p-5 text-center font-bold  bg-gradient-to-r from-[#1d556b] via-[#27583b] to-[#81792e] text-white w-4 h-4 shadow-md m-2  rounded-full">
           <Link to={"/"}>

@@ -60,13 +60,13 @@ const UploadedFiles = ({ fileURL }) => {
   return (
     <div>
       {files.length !== 0 ? (
-        <div className="mt-8 grid grid-cols-4 gap-2">
+        <div className=" mt-8 grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2">
           {files?.map((file) => (
             <div
               key={file._id}
-              className={` mb-2 cursor-pointer border ${
-                darkMode ? "border-zinc-700" : "border-zinc-300"
-              }  rounded-4xl shadow-md  flex items-center flex-col ml-11  justify-between w-full bg-white/10 backdrop-blur-xl overflow-hidden  p-2 `}
+              className={`mb-2 cursor-pointer border ${
+                darkMode ? "border-zinc-700" : " border-zinc-300"
+              }  rounded-4xl shadow-md  flex items-center flex-col md:ml-11  justify-between w-full bg-white/10 backdrop-blur-xl overflow-hidden  p-2 `}
             >
               <div
                 className={`inset-shadow-sm ${

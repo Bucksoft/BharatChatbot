@@ -47,7 +47,19 @@ const UploadFiles = () => {
 
   return (
     <>
-      <main className="p-8">
+      <main className="md:p-8 ">
+        <svg
+          className="absolute hidden md:block top-0 left-0 -z-10 w-full h-full"
+          viewBox="0 0 1440 320"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="#60e096"
+            fillOpacity="0.4"
+            d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+          />
+        </svg>
         <h1
           className={`font-bold text-3xl ${
             darkMode ? "text-zinc-100" : "text-zinc-700"
@@ -56,15 +68,17 @@ const UploadFiles = () => {
           <VscFilePdf /> Upload your pdf
         </h1>
         <p
-          className={`${darkMode ? "text-zinc-200" : "text-zinc-700"}   ml-11`}
+          className={`${
+            darkMode ? "text-zinc-200" : "text-zinc-700"
+          } text-sm md:text-md ml-11`}
         >
           Let BuckBot Analyze and Chat with Your PDF Documents.
         </p>
 
-        <section className="ml-11 mt-8">
+        <section className="md:ml-11 mt-8">
           <label
             htmlFor="file"
-            className="w-1/6 rounded-4xl hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 text-white flex items-center gap-2 shadow-md shadow-green-500/40 cursor-pointer"
+            className="md:w-1/6 rounded-4xl hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 text-white flex items-center justify-center gap-2 shadow-md shadow-green-500/40 cursor-pointer"
           >
             <FaPlus /> Select pdf
           </label>
@@ -77,7 +91,7 @@ const UploadFiles = () => {
         </section>
 
         {file && (
-          <div className="w-3/4 mt-5 ml-11 flex items-center justify-between">
+          <div className=" md:w-3/4 mt-5 md:ml-11 flex md:flex-row flex-col md:items-center justify-between">
             <p className="flex items-center gap-2 pl-2 py-2 ">
               <VscFilePdf size={16} />
               <span className="font-semibold">{file?.name}</span>
@@ -88,7 +102,7 @@ const UploadFiles = () => {
               </button> */}
               <button
                 onClick={handleFileUpload}
-                className="bg-green-800 text-white rounded-4xl flex items-center gap-2 font-medium p-2 px-5 hover:bg-green-700 cursor-pointer"
+                className="bg-green-800 text-white rounded-4xl flex items-center gap-2 font-medium p-2 px-5 w-full  justify-center hover:bg-green-700 cursor-pointer "
               >
                 {loading ? (
                   <LoaderIcon className="animate-spin" />

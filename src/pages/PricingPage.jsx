@@ -30,6 +30,19 @@ const PricingPage = () => {
 
   return (
     <main className="">
+      <svg
+        className="absolute top-0 left-0 hidden md:block -z-10 w-full h-full"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#60e096"
+          fillOpacity="0.4"
+          d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+        />
+      </svg>
+
       {/* heading */}
       <div className="text-center py-10 font-bold text-4xl">
         <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-[#2A7B9B] via-[#57C785] to-[#EDDD53]">
@@ -41,70 +54,10 @@ const PricingPage = () => {
         </p>
       </div>
 
-      <section className="grid grid-cols-3 px-2 w-3/4 mx-auto gap-3">
-        {/* {plans.map((plan) => (
-          <div
-            key={plan?._id}
-            className={` ${
-              (plan.name === "Free" || plan.name === "Enterprise") &&
-              "border-b-8 border-[#143c4d]"
-            } shadow-md ${
-              darkMode ? "border border-zinc-800" : "border border-zinc-200 "
-            } rounded-lg overflow-hidden  `}
-          >
-            <div
-              style={{
-                clipPath: "circle(66.1% at 50% 9%)",
-              }}
-              className={`flex items-center py-8 flex-col gap-3  ${
-                plan.name === "Pro"
-                  ? " bg-gradient-to-b from-[#143c4d] to-[#2b6645] text-white"
-                  : !darkMode
-                  ? "bg-zinc-200 text-black "
-                  : "bg-zinc-900"
-              }`}
-            >
-              <span
-                className={`font-semibold uppercase text-md ${
-                  plan._id === 1 || plan._id === 3
-                    ? "text-transparent bg-clip-text bg-gradient-to-r from-[#2A7B9B] to-[#57C785] "
-                    : ""
-                }`}
-              >
-                {plan?.name}
-              </span>
-              <div
-                className={`font-bold text-5xl flex flex-col items-center ${
-                  plan._id === 1 || plan._id === 3
-                    ? "text-transparent bg-clip-text bg-gradient-to-r from-[#2A7B9B] to-[#57C785] "
-                    : ""
-                }`}
-              >
-                ${plan?.price}
-                <span className="text-sm font-normal">per month</span>
-              </div>
-            </div>
-            <div className="my-8 flex flex-col items-center justify-center">
-              {plan?.features?.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="w-3/4 p-1 flex text-nowrap gap-2 items-center text-sm"
-                >
-                  <BiCheck size={12} className="text-green-500" />{" "}
-                  {feature?.maxUnitsAllowed}{" "}
-                  {feature?.name.split("_").join(" ")}
-                </div>
-              ))}
-            </div>
-            <div className="w-full flex items-center justify-center cursor-pointer">
-              <SelectPlan planId={plan?._id} planName={plan.name} />
-            </div>
-          </div>
-        ))} */}
-
+      <section className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 md:w-3/4 mx-auto gap-3">
         {plans?.map((plan) => (
           <div
-            className={`border relative ${
+            className={`border relative  ${
               darkMode && "bg-white/10"
             } bg-white backdrop-blur-3xl  ${
               darkMode && "border-zinc-700"

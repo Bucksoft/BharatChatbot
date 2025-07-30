@@ -33,7 +33,6 @@ const UploadURLPage = () => {
           withCredentials: true,
         }
       );
-      console.log(`Response :`, res);
 
       if (res.data.success) {
         toast.success(res.data.msg || "Uploaded");
@@ -52,7 +51,6 @@ const UploadURLPage = () => {
         const res = await axiosInstance.get("chat/all", {
           withCredentials: true,
         });
-        console.log(res);
         if (res.data.success) {
           setAllUrls(res.data.allUrls.website_urls);
         }
@@ -102,7 +100,19 @@ const UploadURLPage = () => {
   };
 
   return (
-    <main className="p-8">
+    <main className="md:p-8">
+      <svg
+        className="absolute hidden md:block top-0 left-0 -z-10 w-full h-full"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#60e096"
+          fillOpacity="0.4"
+          d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+        />
+      </svg>
       <h1
         className={`font-bold text-3xl ${
           darkMode ? "text-zinc-100" : "text-zinc-700"
@@ -110,13 +120,17 @@ const UploadURLPage = () => {
       >
         <FiLink /> Upload website URL
       </h1>
-      <p className={` ${darkMode ? "text-zinc-200" : "text-zinc-700"}   ml-11`}>
+      <p
+        className={` ${
+          darkMode ? "text-zinc-200" : "text-zinc-700"
+        }  text-sm ml-11`}
+      >
         Let BuckBot Read and Understand Your Website — Just Share the Link{" "}
       </p>
 
       <form
         onSubmit={handleUrlSubmit}
-        className="ml-11 mt-8 flex items-center gap-3"
+        className="md:ml-11 mt-8 flex md:flex-row flex-col items-center gap-3"
       >
         <input
           type="text"
@@ -124,14 +138,14 @@ const UploadURLPage = () => {
           onChange={(e) => setUrl(e.target.value)}
           className={`py-2 px-3 rounded-4xl border ${
             darkMode ? "placeholder:text-zinc-500" : ""
-          } border-zinc-400 w-5/6`}
+          } border-zinc-400 md:w-5/6 w-full`}
           placeholder="https://buckbot-ai.com"
         />
         <button
           disabled={loading}
           className={` ${
             loading ? "bg-zinc-500/10 shadow-none" : ""
-          } w-1/6 hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 flex items-center justify-center gap-2 shadow-md rounded-4xl shadow-green-500/40 cursor-pointer`}
+          } md:w-1/6 w-full hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 flex items-center justify-center gap-2 shadow-md rounded-4xl shadow-green-500/40 cursor-pointer`}
         >
           {loading ? (
             <div className={` text-zinc-500 flex text-sm items-center gap-2  `}>
@@ -151,13 +165,13 @@ const UploadURLPage = () => {
           <span className="mt-1">No links uploaded yet</span>
         </section>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 px-11">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 md:px-11">
           {allUrls?.map((url, index) => (
             <div
               key={index}
               className={`${
                 darkMode ? "border-zinc-700" : "border-zinc-300"
-              }   bg-white/10 shadow-md border  rounded-4xl p-4 flex flex-col items-center justify-between hover:shadow-lg transition-all`}
+              }   bg-white/10 shadow-md border rounded-4xl p-4 flex flex-col items-center justify-between hover:shadow-lg transition-all`}
             >
               <Link
                 to={url?.url}

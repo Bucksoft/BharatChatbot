@@ -15,29 +15,6 @@ const GenerateKeysPage = () => {
   const [data, setData] = useState(null);
   const { darkMode } = useAuthStore();
 
-  // async function generateAPIKeys() {
-  //   try {
-  //     setLoading(true);
-  //     const res = await axiosInstance.post(
-  //       `chat/api-key`,
-  //       {
-  //         name,
-  //       },
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-
-  //     setData((prev) => [...prev, res.data.apiKey]);
-  //   } catch (error) {
-  //     console.error("ERROR : ", error);
-  //   } finally {
-  //     setShowPopup(false);
-  //     setName("");
-  //     setLoading(false);
-  //   }
-  // }
-
   function handleCopyApiKey(key) {
     navigator.clipboard.writeText(key);
     toast.success("Copied");
@@ -60,12 +37,22 @@ const GenerateKeysPage = () => {
     getAllApiKeys();
   }, []);
 
-  console.log(data);
-
   return (
-    <main className="p-8 relative">
+    <main className="md:p-8 p-5 ">
+      <svg
+        className="absolute hidden md:block top-0 left-0 -z-10 w-full h-full"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="#60e096"
+          fillOpacity="0.4"
+          d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+        />
+      </svg>
       <h1
-        className={`font-bold text-3xl ${
+        className={`w-full s font-bold text-3xl ${
           darkMode ? "text-zinc-100" : "text-zinc-700"
         }  flex items-center gap-3`}
       >
@@ -74,16 +61,8 @@ const GenerateKeysPage = () => {
       <p className={` ${darkMode ? "text-zinc-200" : "text-zinc-700"}   ml-11`}>
         Manage and access your API keys securely in one place.
       </p>
-      {/* <section className="ml-11 mt-8">
-        <button
-          onClick={() => setShowPopup(true)}
-          className="hover:bg-green-700 rounded-xl transition-all ease-in-out  px-5 py-2 bg-green-800 text-white flex items-center gap-2 shadow-md shadow-green-500/40 cursor-pointer"
-        >
-          <FaPlus /> Generate New
-        </button>
-      </section> */}
 
-      <section className="ml-11 mt-8">
+      <section className="md:ml-11 mt-8">
         {data?.length === 0 ? (
           <>
             <div className="flex flex-col items-center justify-center gap-3 text-zinc-400">
@@ -92,150 +71,51 @@ const GenerateKeysPage = () => {
             </div>
           </>
         ) : (
-          // <table
-          //   className={`w-full border ${
-          //     darkMode ? "border-zinc-600 " : "border-zinc-400"
-          //   } `}
-          // >
-          //   <thead>
-          //     <tr
-          //       className={`border ${
-          //         darkMode
-          //           ? "bg-zinc-800 border-zinc-600"
-          //           : "bg-zinc-300 border-zinc-400"
-          //       }  `}
-          //     >
-          //       <th
-          //         className={`text-center py-2 border-r ${
-          //           darkMode ? "border-zinc-500" : "border-zinc-400"
-          //         } `}
-          //       >
-          //         Name
-          //       </th>
-          //       <th
-          //         className={`text-center py-2 border-r ${
-          //           darkMode ? "border-zinc-500" : "border-zinc-400"
-          //         } `}
-          //       >
-          //         Key
-          //       </th>
-          //       <th
-          //         className={`text-center py-2 border-r ${
-          //           darkMode ? "border-zinc-500" : "border-zinc-400"
-          //         } `}
-          //       >
-          //         Created On
-          //       </th>
-          //       <th
-          //         className={`text-center py-2  ${
-          //           darkMode ? "border-zinc-500" : "border-zinc-400"
-          //         } `}
-          //       >
-          //         Action
-          //       </th>
-          //     </tr>
-          //   </thead>
-          //   <tbody className="">
-          //     {
-          //       <>
-          //         {data?.map((d, index) => (
-          //           <tr
-          //             key={index}
-          //             className={`border-t ${
-          //               darkMode ? " border-zinc-500" : "border-zinc-400"
-          //             }  `}
-          //           >
-          //             <td
-          //               className={`text-center py-2 ${
-          //                 darkMode ? "border-zinc-500" : "border-zinc-400"
-          //               } border-r `}
-          //             >
-          //               {d?.name}
-          //             </td>
-          //             <td
-          //               className={`text-center py-2 ${
-          //                 darkMode ? "border-zinc-500" : "border-zinc-400"
-          //               } border-r `}
-          //             >
-          //               {d?.key.slice(0, 30)}.......
-          //             </td>
-          //             <td
-          //               className={`text-center py-2 ${
-          //                 darkMode ? "border-zinc-500" : "border-zinc-400"
-          //               } border-r `}
-          //             >
-          //               {d?.createdAt.split("T")[0]}
-          //             </td>
-          //             <td
-          //               className={`text-center py-2 ${
-          //                 darkMode ? "border-zinc-500" : "border-zinc-400"
-          //               } border-r `}
-          //             >
-          //               {new Date(d?.expiresIn) < new Date() ? (
-          //                 <span className="ml-4 px-2 py-0.5 bg-red-100 text-red-600 text-xs rounded-full">
-          //                   Expired
-          //                 </span>
-          //               ) : (
-          //                 <button
-          //                   onClick={() => handleCopyApiKey(d?.key)}
-          //                   className={`${
-          //                     darkMode ? "text-zinc-200" : "text-zinc-700"
-          //                   } pl-4 cursor-pointer`}
-          //                 >
-          //                   <BiCopy />
-          //                 </button>
-          //               )}
-          //             </td>
-          //           </tr>
-          //         ))}
-          //       </>
-          //     }
-          //   </tbody>
-          // </table>
           <div>
-            {data?.map((d) => (
+            {data?.map((d, index) => (
               <div
+                key={index}
                 className={`${
                   darkMode && "border-zinc-700 bg-white/10 "
-                } backdrop-blur-3xl bg-white flex items-center justify-between p-5 shadow-lg rounded-4xl border border-zinc-300 text-sm`}
+                } backdrop-blur-3xl bg-white flex md:flex-row flex-col md:items-center justify-between p-5  shadow-lg md:rounded-4xl rounded-md border border-zinc-300 text-sm`}
               >
-                <div>
-                  <h3 className="font-semibold text-center">Name</h3>
+                <div className="">
+                  <h3 className="font-semibold md:text-center">Name</h3>
                   <p
-                    className={`mt-3 ${
+                    className={` ${
                       darkMode ? "text-green-500" : "text-green-700 "
                     }`}
                   >
                     {d?.name}
                   </p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-center">Key</h3>
+                <div className="mt-3 md:mt-0">
+                  <h3 className="font-semibold md:text-center">Key</h3>
                   <p
-                    className={`mt-3  ${
+                    className={`${
                       darkMode ? "text-green-500" : "text-green-700 "
                     }`}
                   >
                     {d?.key.slice(0, 30)}......
                   </p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-center">Added</h3>
+                <div className="mt-3 md:mt-0">
+                  <h3 className="font-semibold md:text-center">Added</h3>
                   <p
-                    className={`mt-3  ${
+                    className={`md:mt-3  ${
                       darkMode ? "text-green-500" : "text-green-700 "
                     }`}
                   >
                     {d?.createdAt.split("T")[0]}
                   </p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-center">Action</h3>
+                <div className="mt-3 md:mt-0">
+                  <h3 className="font-semibold md:text-center">Action</h3>
                   <button
                     onClick={() => handleCopyApiKey(d?.key)}
                     className={`${
                       darkMode ? "text-green-500" : "text-green-700"
-                    } pl-4 cursor-pointer mt-3 `}
+                    } md:pl-4 cursor-pointer  `}
                   >
                     <BiCopy />
                   </button>
