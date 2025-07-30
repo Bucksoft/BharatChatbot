@@ -1,0 +1,120 @@
+import { sidebarLinks } from "../lib/sidebarLinks.jsx";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { LuLogOut } from "react-icons/lu";
+import { axiosInstance } from "../config/axios.js";
+import { useAuthStore } from "../store/userStore.js";
+import toast from "react-hot-toast";
+import { BsRobot } from "react-icons/bs";
+import { CiLight } from "react-icons/ci";
+import { LuSunMoon } from "react-icons/lu";
+
+const Sidebar = () => {
+  const { user, logout, setDarkMode, darkMode } = useAuthStore();
+  const navigate = useNavigate();
+  async function logoutUser() {
+    try {
+      await axiosInstance.post("user/logout", {
+        withCredentials: true,
+      });
+      navigate("/");
+      toast.success("Logged out successfully");
+      logout();
+    } catch (error) {
+      toast.error(error.response.data.msg || "Failed to log out");
+    }
+  }
+
+  return (
+    <main
+      className={`rounded-3xl min-h-full text-sm overflow-hidden border-r relative  ${
+        darkMode
+          ? " bg-[#040404] text-white  "
+          : "bg-zinc-100 text-black border-zinc-300 "
+      }   backdrop-blur-lg shadow-lg `}
+    >
+      <div className="flex items-center justify-between px-2  ">
+        <h1 className="flex items-center justify-center p-5 text-center font-bold  bg-gradient-to-r from-[#1d556b] via-[#27583b] to-[#81792e] text-white w-4 h-4 shadow-md m-2  rounded-full">
+          <Link to={"/"}>
+            <BsRobot size={25} />
+          </Link>
+        </h1>
+        <button onClick={() => setDarkMode()} className="cursor-pointer">
+          {darkMode ? (
+            <CiLight size={25} className="text-white" />
+          ) : (
+            <LuSunMoon size={25} className="text-black/50" />
+          )}
+        </button>
+      </div>
+
+      <div
+        className={` ${
+          darkMode ? "bg-zinc-800" : "bg-zinc-300"
+        }   h-[0.3px] w-full `}
+      />
+      {/* blurred bubble */}
+      <div className="absolute h-20 w-20 bottom-0 right-1/3 blur-xl rounded-full bg-green-500/20 -z-10"></div>
+
+      <div className="mt-4 mx-2">
+        {sidebarLinks?.map((data) => (
+          <div key={data.id} className="py-1">
+            <NavLink
+              to={data.link}
+              className={({ isActive }) => {
+                const baseStyles =
+                  "flex items-center gap-3 hover:bg-green-500/10 p-2 px-6 transition-all ease-in-out duration-200";
+                const activeStyles = isActive
+                  ? "bg-white/10 text-green-500 font-semibold backdrop-blur-2xl border-l-4 border-green-700"
+                  : "";
+                const textColor = darkMode
+                  ? isActive
+                    ? "text-green-500"
+                    : "text-white"
+                  : isActive
+                  ? "text-green-700 bg-zinc-200"
+                  : "text-black";
+
+                return `${baseStyles} ${activeStyles} ${textColor}`;
+              }}
+            >
+              <p>{data.icon}</p>
+              <span>{data.label}</span>
+            </NavLink>
+          </div>
+        ))}
+      </div>
+
+      <div
+        className={`absolute flex flex-col gap-2 text-xs ${
+          darkMode
+            ? "bg-white/10 border-white/20"
+            : "bg-black/10 border-white/10"
+        }  backdrop-blur-md border-t  bottom-0 pt-2 text-center w-full text-white`}
+      >
+        <div
+          className={`flex items-center gap-1 pl-3 ${
+            darkMode ? "text-white" : "text-black"
+          } `}
+        >
+          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
+            <img
+              src={user?.profilePicture}
+              loading="lazy"
+              width={20}
+              className="rounded-full object-cover"
+            />
+          </div>
+          <span className="truncate">{user?.email}</span>
+        </div>
+        <button
+          onClick={logoutUser}
+          className="bg-green-800/90 py-2 flex items-center justify-center gap-2 hover:bg-green-700 transition-all ease-in-out duration-200 font-medium cursor-pointer text-sm text-white rounded-b-md"
+        >
+          <LuLogOut /> Logout
+        </button>
+      </div>
+    </main>
+  );
+};
+
+export default Sidebar;
