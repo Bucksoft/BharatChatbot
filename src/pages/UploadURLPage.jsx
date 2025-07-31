@@ -177,7 +177,9 @@ const UploadURLPage = () => {
                 to={url?.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:underline truncate w-4/5"
+                className={` ${
+                  darkMode ? "text-blue-300" : "text-blue-500"
+                }  hover:underline  truncate w-full`}
                 title={url}
               >
                 {url?.url}
@@ -186,7 +188,11 @@ const UploadURLPage = () => {
               <div className="flex items-center justify-center mt-2 w-full">
                 <button
                   onClick={() => markURLasActive(url?.url)}
-                  className="flex items-center text-xs  text-green-700 rounded-4xl p-1 bg-green-500/10 px-3 justify-center text-nowrap  w-1/2  cursor-pointer"
+                  className={` ${
+                    darkMode
+                      ? "text-green-400 bg-green-500/10"
+                      : "text-green-600 bg-green-500/10"
+                  } flex items-center text-xs   rounded-4xl py-2  px-3 justify-center text-nowrap  w-1/2  cursor-pointer`}
                 >
                   {activating ? (
                     <LuLoader className="animate-spin " />
@@ -196,7 +202,9 @@ const UploadURLPage = () => {
                 </button>
                 <button
                   onClick={() => handleDeleteUrl(url?.url)}
-                  className="text-red-500 rounded-xl flex items-center justify-center gap-2 hover:text-red-700 text-xs ml-4 cursor-pointer  w-1/2 bg-red-500/10 p-1 px-3"
+                  className={`${
+                    darkMode ? "text-red-100 bg-red-500" : "bg-red-500/20"
+                  }  rounded-4xl flex items-center justify-center gap-2 hover:text-red-700 text-xs ml-4 cursor-pointer  w-1/2  py-2 px-3`}
                   title="Delete"
                 >
                   <GoTrash size={12} /> Delete

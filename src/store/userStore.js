@@ -10,6 +10,7 @@ export const useAuthStore = create(
       activePlan: null,
       allUrls: [],
       darkMode: false,
+      allPlans: [],
 
       setIsLoggedIn: () => set(() => ({ isLoggedIn: true })),
 
@@ -26,11 +27,12 @@ export const useAuthStore = create(
       setUser: (user) => set({ user }),
       setActivePlan: (activePlan) => set({ activePlan }),
       setAllUrls: (urls) => set({ allUrls: urls }),
+      setAllPlans: (plans) => set({ allPlans: plans }),
       addUrl: (url) => set((state) => ({ allUrls: [...state.allUrls, url] })),
       setDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
     }),
     {
-      name: "auth-storage", 
+      name: "auth-storage",
       partialize: (state) => ({
         token: state.token,
         user: state.user,

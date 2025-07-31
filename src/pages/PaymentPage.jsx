@@ -98,18 +98,20 @@ const PaymentPage = () => {
 
   return (
     <main className="p-2 ">
-      <section className="w-full border border-zinc-300 rounded-lg p-2 h-full flex items-center justify-start px-8 gap-2">
+      <section className="w-full  rounded-lg p-2 h-full flex items-center justify-start px-8 gap-2">
         <div className="w-full ">
           <div className="flex border-b pb-5 border-b-zinc-200 w-full items-center justify-between">
             <div className="w-full">
               <h1
                 className={`text-4xl font-bold my-5 ${
-                  darkMode ? "text-zinc-400" : "text-zinc-700"
+                  darkMode ? "text-zinc-100" : "text-zinc-700"
                 } `}
               >
                 Place an order
               </h1>
-              <p>Place an order for your {currentPlan?.name} plan.</p>
+              <p className={`${darkMode ? "text-zinc-200" : ""}`}>
+                Place an order for your {currentPlan?.name} plan.
+              </p>
               <div className="font-bold text-5xl my-4 ">
                 ${currentPlan?.price} <span className="text-sm">per month</span>
               </div>
@@ -139,19 +141,39 @@ const PaymentPage = () => {
             </ul>
           </div>
 
-          <table className="w-3/4 mt-4 text-xs border-collapse border border-zinc-300 dark:border-zinc-700">
+          <table
+            className={`w-3/4 mt-4 text-xs border-collapse border ${
+              darkMode ? "border-zinc-800" : "border-zinc-300"
+            }  `}
+          >
             <thead>
-              <tr className="bg-zinc-100 dark:bg-zinc-800">
-                <th className="border border-zinc-300 dark:border-zinc-700 px-2 py-1 text-left">
+              <tr className={` ${darkMode ? "bg-zinc-900" : ""} bg-zinc-100 `}>
+                <th
+                  className={`border ${
+                    darkMode ? "border-zinc-700" : "border-zinc-300"
+                  }   px-2 py-1 text-left`}
+                >
                   Feature
                 </th>
-                <th className="border border-zinc-300 dark:border-zinc-700 px-2 py-1 text-left">
+                <th
+                  className={`border ${
+                    darkMode ? "border-zinc-700" : "border-zinc-300"
+                  }   px-2 py-1 text-left`}
+                >
                   Per Unit Credit
                 </th>
-                <th className="border border-zinc-300 dark:border-zinc-700 px-2 py-1 text-left">
+                <th
+                  className={`border ${
+                    darkMode ? "border-zinc-700" : "border-zinc-300"
+                  }   px-2 py-1 text-left`}
+                >
                   Total Units
                 </th>
-                <th className="border border-zinc-300 dark:border-zinc-700 px-2 py-1 text-left">
+                <th
+                  className={`border ${
+                    darkMode ? "border-zinc-700" : "border-zinc-300"
+                  }   px-2 py-1 text-left`}
+                >
                   Total Credits
                 </th>
               </tr>
@@ -159,16 +181,32 @@ const PaymentPage = () => {
             <tbody>
               {currentPlan?.features?.map((feature, idx) => (
                 <tr key={idx}>
-                  <td className="border border-zinc-300 dark:border-zinc-700 px-2 py-1 capitalize">
+                  <td
+                    className={`border ${
+                      darkMode ? "border-zinc-700" : "border-zinc-300"
+                    }  px-2 py-1 capitalize`}
+                  >
                     {feature.name.replaceAll("_", " ")}
                   </td>
-                  <td className="border border-zinc-300 dark:border-zinc-700 px-2 py-1">
+                  <td
+                    className={`border ${
+                      darkMode ? "border-zinc-700" : "border-zinc-300"
+                    }  px-2 py-1 capitalize`}
+                  >
                     {feature.perUnitCreditCost} credits
                   </td>
-                  <td className="border border-zinc-300 dark:border-zinc-700 px-2 py-1">
+                  <td
+                    className={`border ${
+                      darkMode ? "border-zinc-700" : "border-zinc-300"
+                    }  px-2 py-1 capitalize`}
+                  >
                     {feature.maxUnitsAllowed}
                   </td>
-                  <td className="border border-zinc-300 dark:border-zinc-700 px-2 py-1">
+                  <td
+                    className={`border ${
+                      darkMode ? "border-zinc-700" : "border-zinc-300"
+                    }  px-2 py-1 capitalize`}
+                  >
                     {feature.allocatedCredits}
                   </td>
                 </tr>

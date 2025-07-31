@@ -87,7 +87,9 @@ const UploadedFiles = ({ fileURL }) => {
                 <div className="w-full space-x-2 flex">
                   <button
                     onClick={() => markFileAsActive(file.name)}
-                    className={`text-xs text-green-700 rounded-4xl bg-green-500/10 px-3 font-medium hover:bg-green-500/20 cursor-pointer p-2 w-1/2  ${
+                    className={`text-xs ${
+                      darkMode && "text-green-200"
+                    }  rounded-4xl bg-green-500/10 px-3 font-medium hover:bg-green-500/20 cursor-pointer p-2 w-1/2  ${
                       file?.isActive && "border border-green-300"
                     }`}
                   >
@@ -106,7 +108,9 @@ const UploadedFiles = ({ fileURL }) => {
                   </button>
                   <button
                     onClick={() => deleteFile(file.name)}
-                    className=" text-xs text-red-500 rounded-4xl bg-red-500/10 px-3 font-medium hover:bg-red-500/20 cursor-pointer gap-2 p-2 w-1/2 flex items-center justify-center"
+                    className={` text-xs ${
+                      !darkMode && "text-red-100"
+                    }  rounded-4xl bg-red-500/80 px-3 font-medium hover:bg-red-500/70 cursor-pointer gap-2 p-2 w-1/2 flex items-center justify-center`}
                   >
                     <GoTrash size={15} /> Delete
                   </button>

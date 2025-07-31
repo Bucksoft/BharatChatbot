@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const PricingPage = () => {
   const [plans, setPlans] = useState([]);
-  const { darkMode } = useAuthStore();
+  const { darkMode, setAllPlans } = useAuthStore();
 
   useEffect(() => {
     async function fetchAllPlans() {
@@ -19,8 +19,8 @@ const PricingPage = () => {
         const res = await axiosInstance.get("plan/all", {
           withCredentials: true,
         });
-        console.log("PLANS ", res);
         setPlans(res.data);
+        setAllPlans(res.data);
       } catch (error) {
         console.log("Error in fetching plan details", error);
       }
@@ -54,7 +54,7 @@ const PricingPage = () => {
         </p>
       </div>
 
-      <section className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 md:w-3/4 mx-auto gap-3">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 md:w-3/4 mx-auto gap-3">
         {plans?.map((plan) => (
           <div
             className={`border relative  ${
