@@ -8,24 +8,39 @@ import PricingPage from "./PricingPage";
 import { TbReceiptRupee } from "react-icons/tb";
 import { RiFireFill } from "react-icons/ri";
 import { GoCheckCircleFill } from "react-icons/go";
+import { axiosInstance } from "../config/axios";
 
 const HomePage = () => {
   const { user } = useAuthStore();
   const [isScrolled, setIsScrolled] = useState(false);
-  const { allPlans, darkMode } = useAuthStore();
+  const { allPlans, darkMode, setAllPlans } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10); // adjust threshold as needed
+      setIsScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    async function fetchAllPlans() {
+      try {
+        const res = await axiosInstance.get("plan/all", {
+          withCredentials: true,
+        });
+        setAllPlans(res.data);
+      } catch (error) {
+        console.log("Error in fetching plan details", error);
+      }
+    }
+    fetchAllPlans();
+  }, []);
+
   return (
     <main>
-      <section className="bg-black min-h-screen relative overflow-hidden">
+      <section className="bg-black min-h-screen relative overflow-hidden ">
         <svg
           width="100%"
           height="100%"
@@ -82,25 +97,40 @@ const HomePage = () => {
               <span className="hidden md:block">Bharat Chatbot</span>
             </Link>
 
+            <div className="text-white text-sm flex gap-5 items-center">
+              <a
+                href="#features"
+                className="hover:text-green-500 transition-all ease-in-out duration-150"
+              >
+                Features
+              </a>
+              <a
+                href="#pricing"
+                className="hover:text-green-500 transition-all ease-in-out duration-150"
+              >
+                Pricing
+              </a>
+            </div>
+
             <div className="flex items-center gap-3">
-              {user && (
-                <Link
-                  to="/dashboard/pricing"
-                  className="text-xs font-semibold text-white"
-                >
-                  Dashboard
-                </Link>
-              )}
-              {!user ? (
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/dashboard/pricing"
+                    className="text-xs font-semibold text-white"
+                  >
+                    Dashboard
+                  </Link>
+                  <span className="rounded-full bg-red-500/60 text-white  text-xs w-8 h-8 flex items-center justify-center">
+                    {user.name[0].toUpperCase()}
+                  </span>
+                </div>
+              ) : (
                 <Link to="/login">
                   <button className="px-6 py-2 bg-green-800 cursor-pointer text-white rounded-4xl font-medium hover:bg-green-700 transition-colors ease-in-out duration-150 flex items-center gap-2">
                     <LuLogIn /> Login
                   </button>
                 </Link>
-              ) : (
-                <span className="rounded-full bg-red-500/60 text-white  text-xs w-8 h-8 flex items-center justify-center">
-                  {user.name[0].toUpperCase()}
-                </span>
               )}
             </div>
           </nav>
@@ -136,7 +166,19 @@ const HomePage = () => {
               </Link>
             ) : (
               <Link to="/login">
-                <button className="font-medium text-sm mt-10 py-3 px-6 sm:px-8 border-2 rounded-full border-[#133a49] text-[#133a49] hover:text-white hover:bg-gradient-to-r cursor-pointer hover:from-[#133a49] via-[#285c3e] to-[#8a8130]">
+                <button className="text-sm mt-8 px-8 sm:px-12 py-3 rounded-[2rem] bg-green-800 text-white font-semibold border border-green-100 cursor-pointer hover:bg-green-500 transition-all relative ease-in-out duration-300 overflow-hidden hover:text-black">
+                  <svg
+                    className="absolute top-0  left-0  md:block z-10 w-full h-full"
+                    viewBox="0 0 1040 280"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      fill="#60e096"
+                      fillOpacity="0.4"
+                      d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+                    />
+                  </svg>
                   Get Started
                 </button>
               </Link>
@@ -145,8 +187,11 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Features section and Our pricing section*/}
-      <section className="min-h-screen md:h-screen  w-full text-white  flex flex-col bg-black items-center py-12 z-10">
+      {/* Features section */}
+      <section
+        id="features"
+        className="min-h-screen md:h-screen  w-full text-white  flex flex-col bg-black items-center py-24 z-10"
+      >
         <h1 className="font-bold md:text-5xl text-3xl mt-5 mb-10">Features</h1>
 
         {/* features */}
@@ -154,7 +199,7 @@ const HomePage = () => {
           {featureCards?.map((feature) => (
             <div
               key={feature?.id}
-              className="p-6 bg-gradient-to-b from-white/10 to-black backdrop-blur-2xl shadow-zinc-800/30 border border-white/20 z-10 rounded-lg md:w-1/3 shadow-md h-full flex flex-col justify-start"
+              className="p-6 bg-gradient-to-b from-white/10 to-black backdrop-blur-2xl shadow-zinc-800/30 border border-white/20  rounded-lg md:w-1/3 shadow-md h-full flex flex-col justify-start"
             >
               <svg
                 className="absolute top-0 left-0  md:block z-10 w-full h-full"
@@ -183,13 +228,16 @@ const HomePage = () => {
       </section>
 
       {/* Pricing section */}
-
-      <section className="min-h-screen md:h-screen  w-full text-white  flex flex-col bg-black items-center z-10">
+      <section
+        id="pricing"
+        className="min-h-screen pb-8  w-full text-white  flex flex-col bg-black items-center z-10"
+      >
         <h1 className="font-bold md:text-5xl text-3xl mt-44 mb-10">Pricing</h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 px-2 md:w-3/4 mx-auto gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:px-2 md:w-3/4 w-full px-8 mx-auto gap-3">
           {allPlans?.map((plan) => (
             <div
+              key={plan?._id}
               className={`border relative  ${
                 darkMode && "bg-white/10"
               } bg-white backdrop-blur-3xl  ${
@@ -258,6 +306,8 @@ const HomePage = () => {
             </div>
           ))}
         </div>
+
+        {/* Footer section */}
       </section>
     </main>
   );
