@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import { FiLoader } from "react-icons/fi";
 import { useAuthStore } from "../store/userStore";
 import { Link } from "react-router-dom";
-import { IoMdCheckmark } from "react-icons/io";
 import { GoTrash } from "react-icons/go";
 import { LuLoader } from "react-icons/lu";
 
@@ -26,9 +25,9 @@ const UploadURLPage = () => {
     try {
       setLoading(true);
 
-      const planId = activePlan?.planId?._id;
-      const urlFeature = activePlan?.planId?.features?.find(
-        (f) => f.name === "url_upload"
+      const planId = activePlan?.plan?._id;
+      const urlFeature = activePlan?.plan?.features?.find(
+        (f) => f.name === "Url_upload"
       );
       const credits_per_unit = urlFeature?.perUnitCreditCost;
 
@@ -61,8 +60,9 @@ const UploadURLPage = () => {
         const res = await axiosInstance.get("chat/all", {
           withCredentials: true,
         });
+        console.log(res);
         if (res.data.success) {
-          setAllUrls(res.data.allUrls.website_urls);
+          setAllUrls(res.data.allUrls);
         }
       } catch (error) {
         toast.error(error.response.data.msg);
