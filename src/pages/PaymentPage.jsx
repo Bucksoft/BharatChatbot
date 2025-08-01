@@ -23,7 +23,8 @@ const PaymentPage = () => {
         const res = await axiosInstance.get(`plan/${id}`, {
           withCredentials: true,
         });
-        setCurrentPlan(res.data);
+        setCurrentPlan(res.data.plan);
+        console.log(res);
       } catch (error) {
         console.log("ERROR IN FETCHING CURRENT PLAN DETAIlS : ", error);
       }
@@ -227,7 +228,7 @@ const PaymentPage = () => {
               className="flex items-center rounded-xl gap-2 px-5 py-2 bg-green-700 hover:bg-green-500 transition-all ease-in-out duration-300 cursor-pointer my-8 text-black hover:"
             >
               <RiMoneyRupeeCircleFill />
-              {currentPlan?.name.toLowerCase() === "free" ? (
+              {currentPlan?.name?.toLowerCase() === "free" ? (
                 <span>Use Free Plan</span>
               ) : (
                 <span>Pay using Razorpay</span>

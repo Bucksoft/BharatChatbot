@@ -24,9 +24,10 @@ const Sidebar = () => {
     }
   }
 
-  if (!user) {
-    navigate("/login");
+  if(!user){
+    navigate("/login")
   }
+
 
   return (
     <main

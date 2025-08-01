@@ -44,7 +44,8 @@ const LoginPage = () => {
       const res = await axiosInstance.get("user/me", {
         withCredentials: true,
       });
-      setUser(res.data?.user);
+      console.log(res);
+      setUser(res.data.user);
     }
     getUser();
   }, []);
