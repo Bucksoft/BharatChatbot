@@ -18,27 +18,32 @@ const UploadURLPage = () => {
   const [isDeleted, setIsDeleted] = useState(false);
   const { activePlan, allUrls, setAllUrls, darkMode } = useAuthStore();
 
+  console.log(activePlan);
+
   async function handleUrlSubmit(e) {
     e.preventDefault();
     try {
       setLoading(true);
+
+      const planId = activePlan?.planId?._id;
+      const urlFeature = activePlan?.planId?.features?.find(
+        (f) => f.name === "url_upload"
+      );
+      const credits_per_unit = urlFeature?.perUnitCreditCost;
+
+      console.log("Sending payload:", { url, planId, credits_per_unit });
+
       const res = await axiosInstance.post(
         "chat/url",
-        {
-          url,
-          planId: activePlan?.planId?._id,
-          credits_per_unit: activePlan?.planId?.features[2].perUnitCreditCost,
-        },
-        {
-          withCredentials: true,
-        }
+        { url, planId, credits_per_unit },
+        { withCredentials: true }
       );
 
       if (res.data.success) {
         toast.success(res.data.msg || "Uploaded");
       }
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response?.data?.msg || "Upload failed");
     } finally {
       setLoading(false);
       setUrl("");
@@ -197,7 +202,6 @@ const UploadURLPage = () => {
                   {activating ? (
                     <LuLoader className="animate-spin " />
                   ) : (
-                    
                     <p>Mark as Active</p>
                   )}
                 </button>
