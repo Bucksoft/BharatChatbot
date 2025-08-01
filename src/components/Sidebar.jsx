@@ -24,10 +24,9 @@ const Sidebar = () => {
     }
   }
 
-  if(!user){
-    navigate("/login")
+  if (!user) {
+    navigate("/login");
   }
-
 
   return (
     <main
@@ -121,7 +120,7 @@ const Sidebar = () => {
               className="rounded-full object-cover"
             />
           </div>
-          <span className="truncate">{user?.email}</span>
+          <span className="truncate">{user?.user?.email}</span>
         </div>
         <button
           onClick={logoutUser}
