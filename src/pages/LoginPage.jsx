@@ -50,7 +50,7 @@ const LoginPage = () => {
 
   return (
     <main className="h-screen w-full grid place-items-center  text-black">
-      <section className="flex flex-col gap-5 w-1/4 p-5 border-rose-500/20 rounded-lg  shadow-xl shadow-zinc-500/30">
+      <section className="flex  flex-col gap-5 md:w-1/4 p-5 border-rose-500/20 rounded-lg  shadow-xl shadow-zinc-500/30">
         <div className="flex items-center mb-5">
           <span className="text-5xl">🤖</span>
           <p className="text-2xl font-bold">Welcome back </p>

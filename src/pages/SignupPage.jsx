@@ -33,7 +33,7 @@ const SignupPage = () => {
     <main className="h-screen w-full grid place-items-center  text-black">
       <form
         onSubmit={signup}
-        className="flex flex-col gap-5  w-1/4  p-5 rounded-xl  border-rose-500/20  shadow-xl shadow-zinc-500/30"
+        className="flex flex-col gap-5  md:w-1/4  p-5 rounded-xl  border-rose-500/20  shadow-xl shadow-zinc-500/30"
       >
         <div className="flex items-center my-5">
           <span className="text-5xl">🤖</span>
