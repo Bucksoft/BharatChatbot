@@ -21,11 +21,11 @@ const MyPlans = () => {
           withCredentials: true,
         });
         setActivePlan(res.data?.subscription);
-        console.log("SUBSCRIPTION ", res.data);
       } catch (error) {
         console.log("ERROR IN FETCHING  ", error);
       }
     }
+
     getMySubscription();
   }, []);
 

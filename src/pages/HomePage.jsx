@@ -38,6 +38,8 @@ const HomePage = () => {
     fetchAllPlans();
   }, []);
 
+  console.log(user);
+
   return (
     <main>
       <section className="bg-black min-h-screen relative overflow-hidden ">
@@ -97,7 +99,7 @@ const HomePage = () => {
               <span className="hidden md:block">Bharat Chatbot</span>
             </Link>
 
-            <div className="text-white text-sm flex gap-5 items-center">
+            <div className="text-white hidden text-sm md:flex gap-5 items-center">
               <a
                 href="#features"
                 className="hover:text-green-500 transition-all ease-in-out duration-150"
