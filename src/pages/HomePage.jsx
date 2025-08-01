@@ -33,6 +33,8 @@ const HomePage = () => {
     fetchAllPlans();
   }, [setAllPlans]);
 
+  console.log(user);
+  
   return (
     <main className="bg-black text-white">
       <section className="min-h-screen relative overflow-hidden">
@@ -100,7 +102,7 @@ const HomePage = () => {
                     Dashboard
                   </Link>
                   <span className="rounded-full bg-red-500/60 text-white text-xs w-8 h-8 flex items-center justify-center">
-                    {user?.name[0]?.toUpperCase()}
+                    {user?.name[0]?.toUpperCase() || " "}
                   </span>
                 </div>
               ) : (
