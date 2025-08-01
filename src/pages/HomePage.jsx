@@ -230,7 +230,7 @@ const HomePage = () => {
       {/* Pricing section */}
       <section
         id="pricing"
-        className="min-h-screen pb-8  w-full text-white  flex flex-col bg-black items-center z-10"
+        className="min-h-screen pb-8  w-full text-white flex flex-col bg-black items-center z-10"
       >
         <h1 className="font-bold md:text-5xl text-3xl mt-44 mb-10">Pricing</h1>
 
@@ -238,11 +238,7 @@ const HomePage = () => {
           {allPlans?.map((plan) => (
             <div
               key={plan?._id}
-              className={`border relative  ${
-                darkMode && "bg-white/10"
-              } bg-white backdrop-blur-3xl  ${
-                darkMode && "border-zinc-700"
-              } border-zinc-300 rounded-4xl p-4 px-5 ${
+              className={`border relative bg-white/10 backdrop-blur-3xl   border-white/30 rounded-4xl p-4 px-5 ${
                 plan?.name.toLowerCase() === "pro" &&
                 "border-t-5 border-t-[#57C785]"
               }`}
