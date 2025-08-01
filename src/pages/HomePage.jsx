@@ -30,7 +30,7 @@ const HomePage = () => {
         const res = await axiosInstance.get("plan/all", {
           withCredentials: true,
         });
-        setAllPlans(res.data);
+        setAllPlans(res.data.plans);
       } catch (error) {
         console.log("Error in fetching plan details", error);
       }
@@ -38,7 +38,7 @@ const HomePage = () => {
     fetchAllPlans();
   }, []);
 
-  console.log(user);
+  console.log(allPlans);
 
   return (
     <main>
