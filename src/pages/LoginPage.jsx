@@ -23,7 +23,7 @@ const LoginPage = () => {
       console.log("LOGIN RESPONSE ", res);
       if (res.data.token) {
         login(res.data.userData, res.data.token);
-        toast.success(res.data.msg);
+        toast.success(res.data.message);
         navigate("/dashboard/pricing");
       }
     } catch (error) {
@@ -36,7 +36,7 @@ const LoginPage = () => {
     window.location.href =
       "https://bharat-chatbot-backend.onrender.com/auth/google";
     console.log("GOOGLE LOGIN CALLED ");
-    navigate("/dashboard");
+    navigate("/dashboard/pricing");
   };
 
   useEffect(() => {

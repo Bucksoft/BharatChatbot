@@ -155,11 +155,11 @@ const HomePage = () => {
             >
               <div className="flex items-center gap-4 mb-4">
                 <span className="p-3 bg-green-500/10 rounded-full text-green-500 shadow-green-300/10 shadow-md">
-                  {feature.icon}
+                  {feature?.icon}
                 </span>
-                <h3 className="text-lg font-semibold">{feature.title}</h3>
+                <h3 className="text-lg font-semibold">{feature?.title}</h3>
               </div>
-              <p className="text-sm text-gray-300">{feature.description}</p>
+              <p className="text-sm text-gray-300">{feature?.description}</p>
             </div>
           ))}
         </div>

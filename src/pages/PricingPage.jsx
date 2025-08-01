@@ -19,14 +19,16 @@ const PricingPage = () => {
         const res = await axiosInstance.get("plan/all", {
           withCredentials: true,
         });
-        setPlans(res.data);
-        setAllPlans(res.data);
+        setPlans(res.data.plans);
+        setAllPlans(res.data.plans);
       } catch (error) {
         console.log("Error in fetching plan details", error);
       }
     }
     fetchAllPlans();
   }, []);
+
+  console.log(plans);
 
   return (
     <main className="">
