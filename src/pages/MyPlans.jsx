@@ -113,7 +113,7 @@ const MyPlans = () => {
               <div>
                 <h2 className="font-semibold">Total PDFs</h2>
                 <p className="text-3xl text-green-500">
-                  {activePlan?.userId?.files.length}
+                  {activePlan?.user?.files.length}
                 </p>
               </div>
               <FaFilePdf size={40} className="text-zinc-200" />
@@ -129,7 +129,7 @@ const MyPlans = () => {
               <div>
                 <h2 className="font-semibold">Total APIs</h2>
                 <p className="text-3xl text-green-500">
-                  {activePlan?.userId?.apiKeys.length}
+                  {activePlan?.user?.apiKeys.length}
                 </p>
               </div>
               <FaKey size={40} className="text-zinc-200" />
@@ -145,7 +145,7 @@ const MyPlans = () => {
               <div>
                 <h2 className="font-semibold">Total URLs</h2>
                 <p className="text-3xl text-green-500">
-                  {activePlan?.userId?.website_urls.length}
+                  {activePlan?.user?.website_urls.length}
                 </p>
               </div>
               <FaLink size={40} className="text-zinc-200" />
