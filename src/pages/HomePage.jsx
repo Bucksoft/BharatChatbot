@@ -10,7 +10,7 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { axiosInstance } from "../config/axios";
 
 const HomePage = () => {
-  const { user, allPlans, darkMode, setAllPlans } = useAuthStore();
+  const { user, allPlans, setAllPlans } = useAuthStore();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const HomePage = () => {
                     Dashboard
                   </Link>
                   <span className="rounded-full bg-red-500/60 text-white text-xs w-8 h-8 flex items-center justify-center">
-                    {user.name[0].toUpperCase()}
+                    {user?.name[0]?.toUpperCase()}
                   </span>
                 </div>
               ) : (
@@ -175,40 +175,40 @@ const HomePage = () => {
             <div
               key={plan?._id}
               className={`relative border border-white/30 rounded-3xl p-6 bg-white/10 backdrop-blur-md ${
-                plan.name.toLowerCase() === "pro"
+                plan?.name.toLowerCase() === "pro"
                   ? "border-t-4 border-t-[#57C785]"
                   : ""
               }`}
             >
               <div className="mb-2">
-                {plan.name.toLowerCase() === "free" ? (
+                {plan?.name.toLowerCase() === "free" ? (
                   <TbReceiptRupee size={20} color="#57C785" />
-                ) : plan.name.toLowerCase() === "pro" ? (
+                ) : plan?.name.toLowerCase() === "pro" ? (
                   <RiFireFill size={20} color="#57C785" />
                 ) : (
                   <BsFillPatchPlusFill size={20} color="#57C785" />
                 )}
               </div>
-              {plan.name.toLowerCase() === "pro" && (
+              {plan?.name.toLowerCase() === "pro" && (
                 <span className="absolute top-3 right-4 bg-[#57C785] text-white px-2 py-1 text-xs rounded-full">
                   Popular
                 </span>
               )}
-              <h2 className="text-xl font-semibold">{plan.name}</h2>
+              <h2 className="text-xl font-semibold">{plan?.name}</h2>
               <p className="text-sm text-zinc-400 mb-4">
-                {plan.name.toLowerCase() === "free"
+                {plan?.name.toLowerCase() === "free"
                   ? "For learning"
-                  : plan.name.toLowerCase() === "pro"
+                  : plan?.name.toLowerCase() === "pro"
                   ? "As your business scales"
                   : "For more complex business"}
               </p>
               <div className="text-center my-4">
-                <h3 className="text-4xl font-bold">${plan.price}</h3>
+                <h3 className="text-4xl font-bold">${plan?.price}</h3>
                 <p className="text-sm text-gray-300">/month</p>
               </div>
-              <Link to={`/dashboard/${plan._id}`}>
+              <Link to={`/dashboard/${plan?._id}`}>
                 <button className="w-full bg-[#4cb176] hover:bg-[#57C785] py-2 rounded-full text-white font-medium transition">
-                  Get {plan.name}
+                  Get {plan?.name}
                 </button>
               </Link>
               <div className="mt-6">
@@ -219,8 +219,8 @@ const HomePage = () => {
                     className="flex items-center gap-2 text-xs text-white mb-1"
                   >
                     <GoCheckCircleFill size={12} className="text-[#57C785]" />
-                    {feature.maxUnitsAllowed}{" "}
-                    {feature.name.replaceAll("_", " ")}
+                    {feature?.maxUnitsAllowed}{" "}
+                    {feature?.name.replaceAll("_", " ")}
                   </div>
                 ))}
               </div>

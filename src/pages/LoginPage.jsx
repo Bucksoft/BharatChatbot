@@ -22,7 +22,7 @@ const LoginPage = () => {
       });
       console.log("LOGIN RESPONSE ", res);
       if (res.data.token) {
-        login(res.data.userData, res.data.token);
+        login(res.data.user, res.data.token);
         toast.success(res.data.message);
         navigate("/dashboard/pricing");
       }
@@ -44,7 +44,7 @@ const LoginPage = () => {
       const res = await axiosInstance.get("user/me", {
         withCredentials: true,
       });
-      setUser(res.data);
+      setUser(res.data?.user);
     }
     getUser();
   }, []);
