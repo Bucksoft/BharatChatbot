@@ -20,6 +20,7 @@ const MyPlans = () => {
         const res = await axiosInstance.get("subscription", {
           withCredentials: true,
         });
+        console.log("SUBSCRIPTION ", res);
         setActivePlan(res.data?.subscription);
       } catch (error) {
         console.log("ERROR IN FETCHING  ", error);
@@ -70,7 +71,7 @@ const MyPlans = () => {
                 <IoMdCheckmarkCircleOutline /> Active Plan:
               </label>
               <h1 className="font-semibold text-green-500 bg-green-500/10 p-1 px-4 rounded-full">
-                {activePlan?.planId?.name}
+                {activePlan?.plan?.name}
               </h1>
             </div>
 
@@ -79,7 +80,7 @@ const MyPlans = () => {
                 <IoCalendarNumberOutline /> Duration:
               </label>
               <h1 className="font-semibold">
-                {activePlan?.planId?.durationInDays} days
+                {activePlan?.plan?.durationInDays} days
               </h1>
             </div>
 
@@ -87,7 +88,7 @@ const MyPlans = () => {
               <label className="flex items-center gap-2">
                 <AiOutlineDollarCircle /> Price:
               </label>
-              <h1 className="font-semibold">${activePlan?.planId?.price}</h1>
+              <h1 className="font-semibold">${activePlan?.plan?.price}</h1>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -95,7 +96,7 @@ const MyPlans = () => {
                 <BsCalendarX /> Expiry:
               </label>
               <h1 className="font-semibold">
-                {activePlan?.userId?.planExpiresAt?.split("T")[0]}
+                {activePlan?.endDate?.split("T")[0]}
               </h1>
             </div>
           </div>
