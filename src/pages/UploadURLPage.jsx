@@ -159,7 +159,7 @@ const UploadURLPage = () => {
         </button>
       </form>
 
-      {allUrls.length === 0 ? (
+      {allUrls?.length === 0 ? (
         <section className="h-full flex-col text-zinc-300 w-full py-8 flex items-center justify-center">
           <RiLinksFill size={80} />
           <span className="mt-1">No links uploaded yet</span>
@@ -197,6 +197,7 @@ const UploadURLPage = () => {
                   {activating ? (
                     <LuLoader className="animate-spin " />
                   ) : (
+                    
                     <p>Mark as Active</p>
                   )}
                 </button>
