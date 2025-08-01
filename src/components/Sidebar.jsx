@@ -120,7 +120,7 @@ const Sidebar = () => {
               className="rounded-full object-cover"
             />
           </div>
-          <span className="truncate">{user?.user?.email}</span>
+          <span className="truncate">{user?.email}</span>
         </div>
         <button
           onClick={logoutUser}

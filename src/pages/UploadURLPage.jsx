@@ -22,6 +22,7 @@ const UploadURLPage = () => {
 
   async function handleUrlSubmit(e) {
     e.preventDefault();
+
     try {
       setLoading(true);
 
@@ -32,7 +33,11 @@ const UploadURLPage = () => {
       const credits_per_unit = urlFeature?.perUnitCreditCost;
 
       console.log("Sending payload:", { url, planId, credits_per_unit });
-
+      if (!planId || !credits_per_unit) {
+        toast.error("Missing plan details. Please check your subscription.");
+        setLoading(false);
+        return;
+      }
       const res = await axiosInstance.post(
         "chat/url",
         { url, planId, credits_per_unit },
