@@ -16,8 +16,6 @@ const PaymentPage = () => {
   const [currentPlan, setCurrentPlan] = useState(null);
   const [isActive, setIsActive] = useState(false);
 
-  console.log(activePlan);
-
   useEffect(() => {
     async function getPlanById() {
       try {
@@ -25,7 +23,6 @@ const PaymentPage = () => {
           withCredentials: true,
         });
         setCurrentPlan(res.data.plan);
-        console.log(res);
       } catch (error) {
         console.log("ERROR IN FETCHING CURRENT PLAN DETAIlS : ", error);
       }
@@ -34,7 +31,7 @@ const PaymentPage = () => {
   }, []);
 
   const handlePayment = async () => {
-    if (activePlan) {
+    if (activePlan && activePlan?.planId?.name?.toLowerCase() !== "free") {
       setIsActive(true);
       return;
     }
@@ -58,7 +55,6 @@ const PaymentPage = () => {
         description: `Payment for ${currentPlan?.name} plan`,
         order_id: res.data.orderId,
         handler: async function (response) {
-          console.log(response);
           try {
             const verifyRes = await axiosInstance.post("payment/verify-order", {
               orderId: response.razorpay_order_id,
@@ -78,7 +74,6 @@ const PaymentPage = () => {
             }
           } catch (error) {
             toast.error("Payment verification failed");
-            console.log("ERRROR", error);
           }
         },
         prefill: {
@@ -100,7 +95,7 @@ const PaymentPage = () => {
 
   return (
     <main className="md:p-2">
-      <section className="w-full  rounded-lg md:p-2 h-full flex items-center justify-start px-8 gap-2">
+      <section className="w-full rounded-lg md:p-2 h-full flex items-center justify-start px-8 gap-2">
         <div className="w-full ">
           <div className="flex border-b pb-5 border-b-zinc-200 w-full items-center justify-between">
             <div className="w-full">
@@ -243,6 +238,7 @@ const PaymentPage = () => {
           )}
         </div>
       </section>
+
       {isActive && (
         <div className="h-1/3 md:w-1/2  flex items-center md:justify-end justify-center md:pr-11 pr-6 transform translate-y-2 transition-all ease-in-out duration-1000 absolute -top-12  right-0 ">
           <div

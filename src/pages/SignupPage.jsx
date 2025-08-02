@@ -19,10 +19,12 @@ const SignupPage = () => {
         email,
         password,
       });
-      toast.success(res.data.msg);
+      console.log(res);
+      toast.success(res.data.message || "Signup successfull");
       navigate("/login");
     } catch (error) {
-      toast.error(error.response.data.msg);
+      console.log(error);
+      toast.error(error.response?.data?.error || "Signup failed");
     } finally {
       setEmail("");
       setName("");
