@@ -112,13 +112,19 @@ const Sidebar = () => {
             darkMode ? "text-white" : "text-black"
           } `}
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">
-            <img
-              src={user?.profilePicture}
-              loading="lazy"
-              width={20}
-              className="rounded-full object-cover"
-            />
+          <div className="w-6 h-6 rounded-full bg-white/50 flex items-center justify-center overflow-hidden">
+            {user?.profilePicture ? (
+              <>
+                <img
+                  src={user?.profilePicture}
+                  loading="lazy"
+                  width={20}
+                  className="rounded-full object-cover"
+                />
+              </>
+            ) : (
+              <span className="font-semibold">{user?.name[0].toUpperCase()}</span>
+            )}
           </div>
           <span className="truncate">{user?.email}</span>
         </div>

@@ -8,12 +8,13 @@ import { FiLoader } from "react-icons/fi";
 import { useAuthStore } from "../store/userStore";
 import { Link } from "react-router-dom";
 import { GoTrash } from "react-icons/go";
-import { LuLoader } from "react-icons/lu";
+import { LuLoader, LuLoaderCircle } from "react-icons/lu";
 
 const UploadURLPage = () => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [activating, setActivating] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const { activePlan, allUrls, setAllUrls, darkMode } = useAuthStore();
 
@@ -74,6 +75,7 @@ const UploadURLPage = () => {
   const handleDeleteUrl = async (url) => {
     try {
       setIsDeleted(false);
+      setDeleting(true);
       const res = await axiosInstance.delete(`chat/url`, {
         data: { url },
         withCredentials: true,
@@ -84,6 +86,8 @@ const UploadURLPage = () => {
       setIsDeleted(true);
     } catch (error) {
       toast.error(error.response.data.msg);
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -201,7 +205,7 @@ const UploadURLPage = () => {
                   className={` ${
                     darkMode
                       ? "text-green-400 bg-green-500/10"
-                      : "text-green-600 bg-green-500/10"
+                      : "text-green-600 bg-green-500/20"
                   } flex items-center text-xs   rounded-4xl py-2  px-3 justify-center text-nowrap  w-1/2  cursor-pointer`}
                 >
                   {activating ? (
@@ -213,11 +217,19 @@ const UploadURLPage = () => {
                 <button
                   onClick={() => handleDeleteUrl(url?.url)}
                   className={`${
-                    darkMode ? "text-red-100 bg-red-500" : "bg-red-500/20"
+                    darkMode
+                      ? "text-red-100 bg-red-500 hover:text-red-200"
+                      : "bg-red-500/20"
                   }  rounded-4xl flex items-center justify-center gap-2 hover:text-red-700 text-xs ml-4 cursor-pointer  w-1/2  py-2 px-3`}
                   title="Delete"
                 >
-                  <GoTrash size={12} /> Delete
+                  {deleting ? (
+                    <LuLoaderCircle className="animate-spin" />
+                  ) : (
+                    <>
+                      <GoTrash size={12} /> <span>Delete</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
