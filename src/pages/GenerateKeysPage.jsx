@@ -90,7 +90,7 @@ const GenerateKeysPage = () => {
                     key={index}
                     className={`${
                       darkMode && "border-zinc-700 bg-white/10 "
-                    } backdrop-blur-3xl bg-white flex md:flex-row flex-col md:items-center justify-between p-5  shadow-lg md:rounded-4xl rounded-md border border-zinc-300 text-sm`}
+                    } backdrop-blur-3xl mb-2 bg-white flex md:flex-row flex-col md:items-center justify-between p-5  shadow-lg md:rounded-4xl rounded-md border border-zinc-300 text-sm`}
                   >
                     <div className="">
                       <h3 className="font-semibold md:text-center">Name</h3>
@@ -115,7 +115,7 @@ const GenerateKeysPage = () => {
                     <div className="mt-3 md:mt-0">
                       <h3 className="font-semibold md:text-center">Added</h3>
                       <p
-                        className={`md:mt-3  ${
+                        className={`  ${
                           darkMode ? "text-green-500" : "text-green-700 "
                         }`}
                       >
@@ -139,7 +139,7 @@ const GenerateKeysPage = () => {
             )}
           </section>
 
-          {showPopup && (
+          {/* {showPopup && (
             <>
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 transition-all ease-in-out duration-500">
                 <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md text-sm">
@@ -165,7 +165,7 @@ const GenerateKeysPage = () => {
                 </div>
               </div>
             </>
-          )}
+          )} */}
         </>
       )}
     </main>

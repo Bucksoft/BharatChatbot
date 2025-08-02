@@ -36,7 +36,7 @@ const UploadFiles = () => {
       toast.success("File uploaded successfully");
     } catch (error) {
       toast.error(
-        error?.response?.data?.msg || "Oops! File could not be uploaded"
+        error?.response?.data?.msg || "File could not be uploaded"
       );
       console.log(`Error in uploading file...`, error);
     } finally {

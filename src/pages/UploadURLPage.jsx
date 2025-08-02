@@ -16,6 +16,7 @@ const UploadURLPage = () => {
   const [activating, setActivating] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [fetchingUrls, setFetchingUrls] = useState(false);
   const { activePlan, allUrls, setAllUrls, darkMode } = useAuthStore();
 
   console.log(activePlan);
@@ -25,9 +26,8 @@ const UploadURLPage = () => {
 
     try {
       setLoading(true);
-
-      const planId = activePlan?.plan?._id;
-      const urlFeature = activePlan?.plan?.features?.find(
+      const planId = activePlan?.planId?._id;
+      const urlFeature = activePlan?.planId?.features?.find(
         (f) => f.name === "Url_upload"
       );
       const credits_per_unit = urlFeature?.perUnitCreditCost;
@@ -58,6 +58,7 @@ const UploadURLPage = () => {
   useEffect(() => {
     async function getAllUrls() {
       try {
+        setFetchingUrls(true);
         const res = await axiosInstance.get("chat/all", {
           withCredentials: true,
         });
@@ -67,6 +68,8 @@ const UploadURLPage = () => {
         }
       } catch (error) {
         toast.error(error.response.data.msg);
+      } finally {
+        setFetchingUrls(false);
       }
     }
     getAllUrls();
@@ -115,126 +118,138 @@ const UploadURLPage = () => {
 
   return (
     <main className="md:p-8">
-      <svg
-        className="absolute hidden md:block top-0 left-0 -z-10 w-full h-full"
-        viewBox="0 0 1440 320"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-      >
-        <path
-          fill="#60e096"
-          fillOpacity="0.4"
-          d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
-        />
-      </svg>
-      <h1
-        className={`font-bold text-3xl ${
-          darkMode ? "text-zinc-100" : "text-zinc-700"
-        }  flex items-center gap-3`}
-      >
-        <FiLink /> Upload website URL
-      </h1>
-      <p
-        className={` ${
-          darkMode ? "text-zinc-200" : "text-zinc-700"
-        }  text-sm ml-11`}
-      >
-        Let BuckBot Read and Understand Your Website — Just Share the Link{" "}
-      </p>
-
-      <form
-        onSubmit={handleUrlSubmit}
-        className="md:ml-11 mt-8 flex md:flex-row flex-col items-center gap-3"
-      >
-        <input
-          type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          className={`py-2 px-3 rounded-4xl border ${
-            darkMode ? "placeholder:text-zinc-500" : ""
-          } border-zinc-400 md:w-5/6 w-full`}
-          placeholder="https://buckbot-ai.com"
-        />
-        <button
-          disabled={loading}
-          className={` ${
-            loading ? "bg-zinc-500/10 shadow-none" : ""
-          } md:w-1/6 w-full hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 flex items-center justify-center gap-2 shadow-md rounded-4xl shadow-green-500/40 cursor-pointer`}
-        >
-          {loading ? (
-            <div className={` text-zinc-500 flex text-sm items-center gap-2  `}>
-              <FiLoader size={24} className="animate-spin " /> Uploading...
-            </div>
-          ) : (
-            <p className="text-white flex items-center gap-2">
-              <FaPlus /> Upload URL
-            </p>
-          )}
-        </button>
-      </form>
-
-      {allUrls?.length === 0 ? (
-        <section className="h-full flex-col text-zinc-300 w-full py-8 flex items-center justify-center">
-          <RiLinksFill size={80} />
-          <span className="mt-1">No links uploaded yet</span>
-        </section>
+      {fetchingUrls ? (
+        <>
+          <div className="flex items-center gap-3 py-44 w-full justify-center">
+            <LuLoaderCircle className="animate-spin" /> <span>Loading....</span>
+          </div>
+        </>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 md:px-11">
-          {allUrls?.map((url, index) => (
-            <div
-              key={index}
-              className={`${
-                darkMode ? "border-zinc-700" : "border-zinc-300"
-              }   bg-white/10 shadow-md border rounded-4xl p-4 flex flex-col items-center justify-between hover:shadow-lg transition-all`}
-            >
-              <Link
-                to={url?.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={` ${
-                  darkMode ? "text-blue-300" : "text-blue-500"
-                }  hover:underline  truncate w-full`}
-                title={url}
-              >
-                {url?.url}
-              </Link>
+        <>
+          <svg
+            className="absolute hidden md:block top-0 left-0 -z-10 w-full h-full"
+            viewBox="0 0 1440 320"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="#60e096"
+              fillOpacity="0.4"
+              d="M0,192 C360,288 1080,96 1440,192 L1440,320 L0,320 Z"
+            />
+          </svg>
+          <h1
+            className={`font-bold text-3xl ${
+              darkMode ? "text-zinc-100" : "text-zinc-700"
+            }  flex items-center gap-3`}
+          >
+            <FiLink /> Upload website URL
+          </h1>
+          <p
+            className={` ${
+              darkMode ? "text-zinc-200" : "text-zinc-700"
+            }  text-sm ml-11`}
+          >
+            Let BuckBot Read and Understand Your Website — Just Share the Link{" "}
+          </p>
 
-              <div className="flex items-center justify-center mt-2 w-full">
-                <button
-                  onClick={() => markURLasActive(url?.url)}
-                  className={` ${
-                    darkMode
-                      ? "text-green-400 bg-green-500/10"
-                      : "text-green-600 bg-green-500/20"
-                  } flex items-center text-xs   rounded-4xl py-2  px-3 justify-center text-nowrap  w-1/2  cursor-pointer`}
+          <form
+            onSubmit={handleUrlSubmit}
+            className="md:ml-11 mt-8 flex md:flex-row flex-col items-center gap-3"
+          >
+            <input
+              type="text"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              className={`py-2 px-3 rounded-4xl border ${
+                darkMode ? "placeholder:text-zinc-500" : ""
+              } border-zinc-400 md:w-5/6 w-full`}
+              placeholder="https://buckbot-ai.com"
+            />
+            <button
+              disabled={loading}
+              className={` ${
+                loading ? "bg-zinc-500/10 shadow-none" : ""
+              } md:w-1/6 w-full hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 flex items-center justify-center gap-2 shadow-md rounded-4xl shadow-green-500/40 cursor-pointer`}
+            >
+              {loading ? (
+                <div
+                  className={` text-zinc-500 flex text-sm items-center gap-2  `}
                 >
-                  {activating ? (
-                    <LuLoader className="animate-spin " />
-                  ) : (
-                    <p>Mark as Active</p>
-                  )}
-                </button>
-                <button
-                  onClick={() => handleDeleteUrl(url?.url)}
+                  <FiLoader size={24} className="animate-spin " /> Uploading...
+                </div>
+              ) : (
+                <p className="text-white flex items-center gap-2">
+                  <FaPlus /> Upload URL
+                </p>
+              )}
+            </button>
+          </form>
+
+          {allUrls?.length === 0 ? (
+            <section className="h-full flex-col text-zinc-300 w-full py-8 flex items-center justify-center">
+              <RiLinksFill size={80} />
+              <span className="mt-1">No links uploaded yet</span>
+            </section>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 md:px-11">
+              {allUrls?.map((url, index) => (
+                <div
+                  key={index}
                   className={`${
-                    darkMode
-                      ? "text-red-100 bg-red-500 hover:text-red-200"
-                      : "bg-red-500/20"
-                  }  rounded-4xl flex items-center justify-center gap-2 hover:text-red-700 text-xs ml-4 cursor-pointer  w-1/2  py-2 px-3`}
-                  title="Delete"
+                    darkMode ? "border-zinc-700" : "border-zinc-300"
+                  }   bg-white/10 shadow-md border rounded-4xl p-4 flex flex-col items-center justify-between hover:shadow-lg transition-all`}
                 >
-                  {deleting ? (
-                    <LuLoaderCircle className="animate-spin" />
-                  ) : (
-                    <>
-                      <GoTrash size={12} /> <span>Delete</span>
-                    </>
-                  )}
-                </button>
-              </div>
+                  <Link
+                    to={url?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={` ${
+                      darkMode ? "text-blue-300" : "text-blue-500"
+                    }  hover:underline  truncate w-full`}
+                    title={url}
+                  >
+                    {url?.url}
+                  </Link>
+
+                  <div className="flex items-center justify-center mt-2 w-full">
+                    <button
+                      onClick={() => markURLasActive(url?.url)}
+                      className={` ${
+                        darkMode
+                          ? "text-green-400 bg-green-500/10"
+                          : "text-green-600 bg-green-500/20"
+                      } flex items-center text-xs   rounded-4xl py-2  px-3 justify-center text-nowrap  w-1/2  cursor-pointer`}
+                    >
+                      {activating ? (
+                        <LuLoader className="animate-spin " />
+                      ) : (
+                        <p>Mark as Active</p>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleDeleteUrl(url?.url)}
+                      className={`${
+                        darkMode
+                          ? "text-red-100 bg-red-500 hover:text-red-200"
+                          : "bg-red-500/20"
+                      }  rounded-4xl flex items-center justify-center gap-2 hover:text-red-700 text-xs ml-4 cursor-pointer  w-1/2  py-2 px-3`}
+                      title="Delete"
+                    >
+                      {deleting ? (
+                        <LuLoaderCircle className="animate-spin" />
+                      ) : (
+                        <>
+                          <GoTrash size={12} /> <span>Delete</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </main>
   );

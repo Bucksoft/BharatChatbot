@@ -14,7 +14,7 @@ const TotalCredits = ({ totalCredits, creditsUsed }) => {
 
   return (
     <div
-      className={`w-60 p-3 rounded-xl shadow-lg  ${
+      className={`md:w-60 w-full p-3 rounded-xl shadow-lg  ${
         darkMode ? "bg-zinc-900 " : "bg-white"
       } `}
     >
