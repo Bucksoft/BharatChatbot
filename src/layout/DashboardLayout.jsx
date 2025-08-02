@@ -10,10 +10,42 @@ const DashboardLayout = () => {
   return (
     <>
       <main
-        className={`h-screen md:p-5 gap-2 flex flex-col md:flex-row ${
+        className={`h-screen md:p-5 gap-2 relative flex flex-col md:flex-row ${
           darkMode ? "bg-green-800/20" : "md:bg-green-900/60"
         }`}
       >
+       
+          {/* Background Waves */}
+          <svg
+            viewBox="0 0 1440 320"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            className="absolute top-1/2 left-1/2 w-full max-w-[1440px] -translate-x-1/2 -translate-y-1/2 z-[-1]"
+          >
+            {/* Light Green Layer */}
+            <path
+              fill="#86efac"
+              fillOpacity="0.5"
+              d="M0,160L48,144C96,128,192,96,288,85.3C384,75,480,85,576,112C672,139,768,181,864,181.3C960,181,1056,139,1152,117.3C1248,96,1344,96,1392,96L1440,96V320H0Z"
+            />
+            {/* Medium Green Layer */}
+            <path
+              fill="#4ade80"
+              fillOpacity="0.5"
+              d="M0,192L60,186.7C120,181,240,171,360,149.3C480,128,600,96,720,106.7C840,117,960,171,1080,176C1200,181,1320,139,1380,117.3L1440,96V320H0Z"
+            />
+            {/* Dark Green Layer */}
+            <path
+              fill="#22c55e"
+              fillOpacity="0.6"
+              d="M0,224L48,208C96,192,192,160,288,165.3C384,171,480,213,576,208C672,203,768,149,864,133.3C960,117,1056,139,1152,160C1248,181,1344,203,1392,213.3L1440,224V320H0Z"
+            />
+          </svg>
+
+         
+         
+        
+
         {/* Top Bar (only visible on small screens) */}
         <div
           className={`flex items-center justify-between p-4 md:hidden ${

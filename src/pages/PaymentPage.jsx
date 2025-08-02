@@ -6,6 +6,7 @@ import { useAuthStore } from "../store/userStore";
 import { BiCheck, BiCopy } from "react-icons/bi";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { HiKey } from "react-icons/hi";
+import { RxCross2 } from "react-icons/rx";
 
 const PaymentPage = () => {
   const { id } = useParams();
@@ -98,8 +99,8 @@ const PaymentPage = () => {
   const { darkMode } = useAuthStore();
 
   return (
-    <main className="p-2 ">
-      <section className="w-full  rounded-lg p-2 h-full flex items-center justify-start px-8 gap-2">
+    <main className="md:p-2">
+      <section className="w-full  rounded-lg md:p-2 h-full flex items-center justify-start px-8 gap-2">
         <div className="w-full ">
           <div className="flex border-b pb-5 border-b-zinc-200 w-full items-center justify-between">
             <div className="w-full">
@@ -142,81 +143,67 @@ const PaymentPage = () => {
             </ul>
           </div>
 
-          <table
-            className={`w-3/4 mt-4 text-xs border-collapse border ${
-              darkMode ? "border-zinc-800" : "border-zinc-300"
-            }  `}
-          >
-            <thead>
-              <tr className={` ${darkMode ? "bg-zinc-900" : ""} bg-zinc-100 `}>
-                <th
-                  className={`border ${
-                    darkMode ? "border-zinc-700" : "border-zinc-300"
-                  }   px-2 py-1 text-left`}
-                >
-                  Feature
-                </th>
-                <th
-                  className={`border ${
-                    darkMode ? "border-zinc-700" : "border-zinc-300"
-                  }   px-2 py-1 text-left`}
-                >
-                  Per Unit Credit
-                </th>
-                <th
-                  className={`border ${
-                    darkMode ? "border-zinc-700" : "border-zinc-300"
-                  }   px-2 py-1 text-left`}
-                >
-                  Total Units
-                </th>
-                <th
-                  className={`border ${
-                    darkMode ? "border-zinc-700" : "border-zinc-300"
-                  }   px-2 py-1 text-left`}
-                >
-                  Total Credits
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentPlan?.features?.map((feature, idx) => (
-                <tr key={idx}>
-                  <td
-                    className={`border ${
-                      darkMode ? "border-zinc-700" : "border-zinc-300"
-                    }  px-2 py-1 capitalize`}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            {currentPlan?.features?.map((feature, idx) => (
+              <div
+                key={idx}
+                className={`rounded-2xl p-4 shadow-md border transition-all duration-300 ${
+                  darkMode
+                    ? "bg-zinc-900 border-zinc-800 text-zinc-100"
+                    : "bg-white border-zinc-200 text-zinc-700"
+                }`}
+              >
+                <h3 className="text-sm font-semibold mb-2 capitalize text-green-600">
+                  {feature.name.replaceAll("_", " ")}
+                </h3>
+
+                <div className="flex justify-between text-sm mb-1">
+                  <span
+                    className={` ${
+                      darkMode ? "text-zinc-400" : "text-zinc-600"
+                    } `}
                   >
-                    {feature.name.replaceAll("_", " ")}
-                  </td>
-                  <td
-                    className={`border ${
-                      darkMode ? "border-zinc-700" : "border-zinc-300"
-                    }  px-2 py-1 capitalize`}
-                  >
+                    Per Unit Credit:
+                  </span>
+                  <span className="font-medium text-green-500">
                     {feature.perUnitCreditCost} credits
-                  </td>
-                  <td
-                    className={`border ${
-                      darkMode ? "border-zinc-700" : "border-zinc-300"
-                    }  px-2 py-1 capitalize`}
+                  </span>
+                </div>
+
+                <div className="flex justify-between text-sm mb-1">
+                  <span
+                    className={` ${
+                      darkMode ? "text-zinc-400" : "text-zinc-600"
+                    } `}
                   >
-                    {feature.maxUnitsAllowed}
-                  </td>
-                  <td
-                    className={`border ${
-                      darkMode ? "border-zinc-700" : "border-zinc-300"
-                    }  px-2 py-1 capitalize`}
+                    Max Units Allowed:
+                  </span>
+                  <span className="font-medium">{feature.maxUnitsAllowed}</span>
+                </div>
+
+                <div className="flex justify-between text-sm">
+                  <span
+                    className={` ${
+                      darkMode ? "text-zinc-400" : "text-zinc-600"
+                    } `}
                   >
+                    Allocated Credits:
+                  </span>
+                  <span className="font-medium">
                     {feature.allocatedCredits}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
 
           {paymentResponse ? (
             <button
+              style={{
+                boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+              }}
               className="flex items-center rounded-xl gap-2 px-5 py-2 bg-[#57C785] hover:bg-green-500 transition-all ease-in-out  duration-300 cursor-pointer my-8 text-black hover:"
               onClick={() => setAPIvisibility(true)}
             >
@@ -225,7 +212,12 @@ const PaymentPage = () => {
           ) : (
             <button
               onClick={handlePayment}
-              className="flex items-center rounded-xl gap-2 px-5 py-2 bg-green-700 hover:bg-green-500 transition-all ease-in-out duration-300 cursor-pointer my-8 text-black hover:"
+              className="flex items-center rounded-xl gap-2 px-5 py-2  transition-all ease-in-out duration-300 cursor-pointer my-8 text-black "
+              style={{
+                boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+              }}
             >
               <RiMoneyRupeeCircleFill />
               {currentPlan?.name?.toLowerCase() === "free" ? (
@@ -252,15 +244,23 @@ const PaymentPage = () => {
         </div>
       </section>
       {isActive && (
-        <div className="h-1/3 w-1/2 flex items-center justify-end pr-11 transform translate-y-2 transition-all ease-in-out duration-1000 absolute -top-12 right-0 ">
+        <div className="h-1/3 md:w-1/2  flex items-center md:justify-end justify-center md:pr-11 pr-6 transform translate-y-2 transition-all ease-in-out duration-1000 absolute -top-12  right-0 ">
           <div
-            className={`z-10 bg-green-800 p-3 rounded-xl ${
+            className={`z-10 bg-green-800 p-3  rounded-xl ${
               darkMode ? "text-white" : "text-white"
             }`}
           >
-            You are already on a active plan
+            <p className="flex items-center">
+              You are already on a active plan
+              <span
+                onClick={() => setIsActive(false)}
+                className="ml-5 p-2 bg-white text-green-800 rounded-full"
+              >
+                <RxCross2 />
+              </span>
+            </p>
             <button
-              className={`text-sm px-4 rounded-xl text-black bg-white py-1 ml-3`}
+              className={`text-sm px-4 rounded-xl text-black bg-white py-1 mt-1`}
             >
               <Link to={"/dashboard/plans"}>View Plan</Link>
             </button>

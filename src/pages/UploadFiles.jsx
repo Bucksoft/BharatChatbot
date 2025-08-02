@@ -35,9 +35,7 @@ const UploadFiles = () => {
       setFileURL(res.data.fileUrl);
       toast.success("File uploaded successfully");
     } catch (error) {
-      toast.error(
-        error?.response?.data?.msg || "File could not be uploaded"
-      );
+      toast.error(error?.response?.data?.msg || "File could not be uploaded");
       console.log(`Error in uploading file...`, error);
     } finally {
       setFile("");
@@ -78,6 +76,11 @@ const UploadFiles = () => {
         <section className="md:ml-11 mt-8">
           <label
             htmlFor="file"
+            style={{
+              boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+              background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+            }}
             className="md:w-1/6 rounded-4xl hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 text-white flex items-center justify-center gap-2 shadow-md shadow-green-500/40 cursor-pointer"
           >
             <FaPlus /> Select pdf
@@ -103,6 +106,11 @@ const UploadFiles = () => {
               <button
                 onClick={handleFileUpload}
                 className="bg-green-800 text-white rounded-4xl flex items-center gap-2 font-medium p-2 px-5 w-full  justify-center hover:bg-green-700 cursor-pointer "
+                style={{
+                  boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                  background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+                }}
               >
                 {loading ? (
                   <LoaderIcon className="animate-spin" />

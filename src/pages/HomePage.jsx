@@ -33,8 +33,7 @@ const HomePage = () => {
     fetchAllPlans();
   }, [setAllPlans]);
 
-  console.log(user);
-
+ 
   return (
     <main className="bg-black text-white">
       <section className="min-h-screen relative overflow-hidden">
@@ -97,12 +96,14 @@ const HomePage = () => {
                 <div className="flex items-center gap-2">
                   <Link
                     to="/dashboard/pricing"
-                    className="text-xs font-semibold text-white"
+                    className="text-xs font-semibold text-white hover:text-green-500 transition-all ease-in-out duration-150"
                   >
                     Dashboard
                   </Link>
-                  <span className="rounded-full bg-red-500/60 text-white text-xs w-8 h-8 flex items-center justify-center">
-                    {user?.user?.name[0]?.toUpperCase() || ""}
+                  <span
+                    className="rounded-full bg-rose-500 text-white text-xs w-8 h-8 flex items-center justify-center"
+                  >
+                    {user?.name[0]?.toUpperCase() || ""}
                   </span>
                 </div>
               ) : (

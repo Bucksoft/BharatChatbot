@@ -13,7 +13,16 @@ const SelectPlan = ({ planId, planName }) => {
             : "border-2 border-[#143c4d]"
         } uppercase text-sm   px-5 py-2  rounded-full  mb-5 cursor-pointer `}
       >
-        <button className="mb-12  cursor-pointer ">Select Plan</button>
+        <button
+          className="bg-[#4cb176] mb-12  cursor-pointer  hover:bg-[#57C785] text-white w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out"
+          style={{
+            boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+            background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+          }}
+        >
+          Select Plan
+        </button>
       </Link>
     </main>
   );

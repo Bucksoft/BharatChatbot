@@ -168,6 +168,11 @@ const UploadURLPage = () => {
             />
             <button
               disabled={loading}
+              style={{
+                boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+              }}
               className={` ${
                 loading ? "bg-zinc-500/10 shadow-none" : ""
               } md:w-1/6 w-full hover:bg-green-700 transition-all ease-in-out  px-5 py-2 bg-green-800 flex items-center justify-center gap-2 shadow-md rounded-4xl shadow-green-500/40 cursor-pointer`}
@@ -192,52 +197,59 @@ const UploadURLPage = () => {
               <span className="mt-1">No links uploaded yet</span>
             </section>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 md:px-11">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 md:px-11">
               {allUrls?.map((url, index) => (
                 <div
                   key={index}
-                  className={`${
-                    darkMode ? "border-zinc-700" : "border-zinc-300"
-                  }   bg-white/10 shadow-md border rounded-4xl p-4 flex flex-col items-center justify-between hover:shadow-lg transition-all`}
+                  className={`transition-all duration-200 rounded-3xl border shadow-md p-5 flex flex-col justify-between hover:shadow-lg group ${
+                    darkMode
+                      ? "bg-zinc-900 border-zinc-700 text-white"
+                      : "bg-white border-zinc-200 text-zinc-800"
+                  }`}
                 >
-                  <Link
-                    to={url?.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={` ${
-                      darkMode ? "text-blue-300" : "text-blue-500"
-                    }  hover:underline  truncate w-full`}
-                    title={url}
-                  >
-                    {url?.url}
-                  </Link>
+                  <div className="w-full">
+                    <Link
+                      to={url?.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`text-sm font-medium truncate block mb-2 ${
+                        darkMode
+                          ? "text-blue-300 group-hover:text-blue-400"
+                          : "text-blue-600 group-hover:text-blue-700"
+                      }`}
+                      title={url?.url}
+                    >
+                      {url?.url}
+                    </Link>
+                  </div>
 
-                  <div className="flex items-center justify-center mt-2 w-full">
+                  <div className="flex items-center justify-between mt-4 space-x-3">
                     <button
                       onClick={() => markURLasActive(url?.url)}
-                      className={` ${
+                      className={`w-1/2 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center transition-all duration-150 ${
                         darkMode
-                          ? "text-green-400 bg-green-500/10"
-                          : "text-green-600 bg-green-500/20"
-                      } flex items-center text-xs   rounded-4xl py-2  px-3 justify-center text-nowrap  w-1/2  cursor-pointer`}
+                          ? "bg-green-600/10 text-green-300 hover:bg-green-500/20"
+                          : "bg-green-100 text-green-700 hover:bg-green-200"
+                      }`}
                     >
                       {activating ? (
-                        <LuLoader className="animate-spin " />
+                        <LuLoader className="animate-spin text-sm" />
                       ) : (
-                        <p>Mark as Active</p>
+                        "Mark as Active"
                       )}
                     </button>
+
                     <button
                       onClick={() => handleDeleteUrl(url?.url)}
-                      className={`${
+                      className={`w-1/2 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-150 ${
                         darkMode
-                          ? "text-red-100 bg-red-500 hover:text-red-200"
-                          : "bg-red-500/20"
-                      }  rounded-4xl flex items-center justify-center gap-2 hover:text-red-700 text-xs ml-4 cursor-pointer  w-1/2  py-2 px-3`}
+                          ? "bg-red-500/10 text-red-200 hover:bg-red-600/20"
+                          : "bg-red-100 text-red-700 hover:bg-red-200"
+                      }`}
                       title="Delete"
                     >
                       {deleting ? (
-                        <LuLoaderCircle className="animate-spin" />
+                        <LuLoaderCircle className="animate-spin text-sm" />
                       ) : (
                         <>
                           <GoTrash size={12} /> <span>Delete</span>
