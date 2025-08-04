@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "../config/axios";
 import toast from "react-hot-toast";
 
 const VerifyEmail = () => {
@@ -34,13 +34,10 @@ const VerifyEmail = () => {
   const verifyEmailToken = async (token, emailParam) => {
     try {
       setVerifying(true);
-      const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}user/verify-email`,
-        {
-          token,
-          email: emailParam,
-        }
-      );
+      const res = await axiosInstance.post(`user/verify-email`, {
+        token,
+        email: emailParam,
+      });
       setVerificationMessage(
         res.data.msg || "Email verified successfully! Login again"
       );
