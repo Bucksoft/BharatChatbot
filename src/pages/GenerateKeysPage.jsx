@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { FaPlus } from "react-icons/fa6";
 import { IoKeyOutline } from "react-icons/io5";
 import { HiKey } from "react-icons/hi";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { axiosInstance } from "../config/axios";
 import { BiCopy } from "react-icons/bi";
 import { toast } from "react-hot-toast";
@@ -10,8 +8,6 @@ import { useAuthStore } from "../store/userStore";
 import { LuLoaderCircle } from "react-icons/lu";
 
 const GenerateKeysPage = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const { darkMode } = useAuthStore();
@@ -22,7 +18,7 @@ const GenerateKeysPage = () => {
   }
 
   useEffect(() => {
-    async function getAllApiKeys() {
+    async function getMyApiKeys() {
       try {
         setLoading(true);
         const res = await axiosInstance.get("chat/keys", {
@@ -35,7 +31,7 @@ const GenerateKeysPage = () => {
         setLoading(false);
       }
     }
-    getAllApiKeys();
+    getMyApiKeys();
   }, []);
 
   return (
@@ -138,34 +134,6 @@ const GenerateKeysPage = () => {
               </div>
             )}
           </section>
-
-          {/* {showPopup && (
-            <>
-              <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 transition-all ease-in-out duration-500">
-                <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md text-sm">
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter name"
-                    className="w-full mb-4 p-2 border border-gray-300 rounded"
-                  />
-                  <button
-                    onClick={() => setShowPopup(false)}
-                    className="px-4 py-2 bg-rose-500 mr-3 text-white rounded-xl"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={generateAPIKeys}
-                    className="text-[#57C785] border border-[#57C785] rounded-xl px-4 py-2  hover:bg-[#57C785] hover:text-white"
-                  >
-                    Generate
-                  </button>
-                </div>
-              </div>
-            </>
-          )} */}
         </>
       )}
     </main>
