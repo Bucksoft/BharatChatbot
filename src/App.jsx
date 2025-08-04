@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import PaymentPage from "./pages/PaymentPage";
 import MyPlans from "./pages/MyPlans";
 import ProtectedRoute from "./components/ProtectedRoutes";
+import VerifyEmail from "./pages/VerifyEmail";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
 
         {/* Protected Routes */}
         <Route path="/dashboard" element={<ProtectedRoute />}>

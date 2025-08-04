@@ -32,6 +32,21 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error);
+
+      const errMsg = error.response?.data?.error || "Login failed";
+
+      if (
+        error.response?.status === 403 &&
+        errMsg.toLowerCase().includes("not verified")
+      ) {
+        toast.error("Please verify your email.");
+
+        navigate("/verify-email", {
+          state: { email }, // Pass the email to pre-fill
+        });
+      } else {
+        toast.error(errMsg);
+      }
       toast.error(error.response.data.error || error.response.data.msg);
     } finally {
       setLoading(false);
