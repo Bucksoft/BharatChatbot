@@ -26,6 +26,7 @@ const PaymentPage = () => {
           withCredentials: true,
         });
         setCurrentPlan(res.data.plan);
+        console.log(res);
       } catch (error) {
         console.log("ERROR IN FETCHING CURRENT PLAN DETAIlS : ", error);
       } finally {
@@ -99,7 +100,7 @@ const PaymentPage = () => {
   const { darkMode } = useAuthStore();
 
   return (
-    <main className="md:p-2">
+    <main className="md:p-2 relative  ">
       {loading ? (
         <>
           <div className="flex items-center gap-3 py-44 w-full justify-center">
@@ -255,32 +256,31 @@ const PaymentPage = () => {
               )}
             </div>
           </section>
-
-          {isActive && (
-            <div className="h-1/3 md:w-1/2  flex items-center md:justify-end justify-center md:pr-11 pr-6 transform translate-y-2 transition-all ease-in-out duration-1000 absolute -top-12  right-0 ">
-              <div
-                className={`z-10 bg-green-800 p-3  rounded-xl ${
-                  darkMode ? "text-white" : "text-white"
-                }`}
-              >
-                <p className="flex items-center">
-                  You are already on a active plan
-                  <span
-                    onClick={() => setIsActive(false)}
-                    className="ml-5 p-2 bg-white text-green-800 rounded-full"
-                  >
-                    <RxCross2 />
-                  </span>
-                </p>
-                <button
-                  className={`text-sm px-4 rounded-xl text-black bg-white py-1 mt-1`}
-                >
-                  <Link to={"/dashboard/plans"}>View Plan</Link>
-                </button>
-              </div>
-            </div>
-          )}
         </>
+      )}
+      {isActive && (
+        <div className="h-1/3 md:w-1/2  flex items-center md:justify-end justify-center md:pr-11 pr-6 transform translate-y-2 transition-all ease-in-out duration-1000 absolute md:-bottom-12 bottom-0  right-0 ">
+          <div
+            className={`z-10 bg-green-800 p-3  rounded-xl ${
+              darkMode ? "text-white" : "text-white"
+            }`}
+          >
+            <p className="flex items-center">
+              You are already on a active plan
+              <span
+                onClick={() => setIsActive(false)}
+                className="ml-5 p-2 bg-white text-green-800 rounded-full"
+              >
+                <RxCross2 />
+              </span>
+            </p>
+            <button
+              className={`text-sm px-4 rounded-xl text-black bg-white py-1 mt-1`}
+            >
+              <Link to={"/dashboard/plans"}>View Plan</Link>
+            </button>
+          </div>
+        </div>
       )}
     </main>
   );

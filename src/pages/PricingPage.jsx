@@ -13,7 +13,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 const PricingPage = () => {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { darkMode, setAllPlans } = useAuthStore();
+  const { darkMode, setAllPlans, activePlan } = useAuthStore();
 
   useEffect(() => {
     async function fetchAllPlans() {
@@ -32,8 +32,6 @@ const PricingPage = () => {
     }
     fetchAllPlans();
   }, []);
-
-  console.log(plans);
 
   return (
     <main>
@@ -117,15 +115,37 @@ const PricingPage = () => {
                 {/* select plan button */}
                 <Link to={`/dashboard/${plan?._id}`}>
                   <button
-                    className="bg-[#4cb176] hover:bg-[#57C785] text-white w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out"
+                    disabled={
+                      activePlan?.status === "active" &&
+                      plan?.name === activePlan?.planId?.name
+                    }
+                    className={`w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out text-white
+                    ${
+                      activePlan?.status === "active" &&
+                      plan?.name === activePlan?.planId?.name
+                        ? "bg-zinc-600 cursor-not-allowed"
+                        : "bg-[#4cb176] hover:bg-[#57C785]"
+                    }
+                  `}
                     style={{
                       boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
                 inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
-                      background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+                      background:
+                        activePlan?.status === "active" &&
+                        plan?.name === activePlan?.planId?.name
+                          ? "#3a3a3a"
+                          : "linear-gradient(to bottom, #57C785, #3a9b5d)",
                     }}
                   >
                     Get {plan?.name}
                   </button>
+
+                  {activePlan?.status === "active" &&
+                    plan?.name === activePlan?.planId?.name && (
+                      <p className="absolute bg-[rgb(87,199,133)] right-5 top-3 text-white rounded-4xl p-1 px-2 text-[10px] animate-pulse">
+                        currently active
+                      </p>
+                    )}
                 </Link>
 
                 {/* features  */}
