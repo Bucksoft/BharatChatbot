@@ -28,6 +28,8 @@ const Sidebar = () => {
     navigate("/login");
   }
 
+  console.log(user);
+
   return (
     <main
       className={`rounded-3xl min-h-full text-sm overflow-hidden border-r relative  ${
@@ -123,7 +125,9 @@ const Sidebar = () => {
                 />
               </>
             ) : (
-              <span className="font-semibold">{user?.name[0].toUpperCase()}</span>
+              <span className="font-semibold">
+                {user?.name[0].toUpperCase()}
+              </span>
             )}
           </div>
           <span className="truncate">{user?.email}</span>

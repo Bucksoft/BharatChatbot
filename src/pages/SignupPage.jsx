@@ -4,16 +4,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/axios";
 import { toast } from "react-hot-toast";
 import { BsRobot } from "react-icons/bs";
+import { LuLoaderCircle } from "react-icons/lu";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   async function signup(e) {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axiosInstance.post(`user/signup`, {
         name,
         email,
@@ -26,6 +29,7 @@ const SignupPage = () => {
       console.log(error);
       toast.error(error.response?.data?.error || "Signup failed");
     } finally {
+      setLoading(false);
       setEmail("");
       setName("");
       setPassword("");
@@ -95,7 +99,16 @@ const SignupPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="flex items-center rounded-xl gap-2 justify-center bg-gradient-to-r from-[#2A7B9B] via-[#57C785] to-[#EDDD53] shadow-zinc-400 shadow-lg  py-2">
-          <TbLogin2 size={20} /> Sign up
+          {loading ? (
+            <>
+              <LuLoaderCircle className="animate-spin" size={20} />
+            </>
+          ) : (
+            <>
+              {" "}
+              <TbLogin2 size={20} /> Signup{" "}
+            </>
+          )}
         </button>
         <Link to={"/login"} className="text-[#2A7B9B] text-xs">
           Already have an account ? Login here

@@ -33,7 +33,6 @@ const HomePage = () => {
     fetchAllPlans();
   }, [setAllPlans]);
 
- 
   return (
     <main className="bg-black text-white">
       <section className="min-h-screen relative overflow-hidden">
@@ -100,9 +99,7 @@ const HomePage = () => {
                   >
                     Dashboard
                   </Link>
-                  <span
-                    className="rounded-full bg-rose-500 text-white text-xs w-8 h-8 flex items-center justify-center"
-                  >
+                  <span className="rounded-full bg-rose-500 text-white text-xs w-8 h-8 flex items-center justify-center">
                     {user?.name[0]?.toUpperCase() || ""}
                   </span>
                 </div>
@@ -210,7 +207,14 @@ const HomePage = () => {
                 <p className="text-sm text-gray-300">/month</p>
               </div>
               <Link to={`/dashboard/${plan?._id}`}>
-                <button className="w-full bg-[#4cb176] hover:bg-[#57C785] py-2 rounded-full text-white font-medium transition">
+                <button
+                  className="bg-[#4cb176] hover:bg-[#57C785] text-white w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out"
+                  style={{
+                    boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                    background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+                  }}
+                >
                   Get {plan?.name}
                 </button>
               </Link>
