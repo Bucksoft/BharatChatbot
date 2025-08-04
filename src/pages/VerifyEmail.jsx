@@ -41,11 +41,14 @@ const VerifyEmail = () => {
           email: emailParam,
         }
       );
-      setVerificationMessage(res.data.msg || "Email verified successfully!");
-      toast.success(res.data.msg || "Email verified successfully!");
+      setVerificationMessage(
+        res.data.msg || "Email verified successfully! Login again"
+      );
+
+      toast.success(res.data.msg || "Email verified successfully! Login again");
 
       setTimeout(() => {
-        navigate("/dashboard/pricing");
+        navigate("/login");
       }, 2000);
     } catch (err) {
       console.error("Email verification error:", err);
