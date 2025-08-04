@@ -24,6 +24,7 @@ const LoginPage = () => {
         email,
         password,
       });
+      console.log(res);
       if (res.data.token) {
         login(res.data.user, res.data.token);
         toast.success(res.data.message);
@@ -31,7 +32,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.err || error.response.data.msg);
+      toast.error(error.response.data.error || error.response.data.msg);
     } finally {
       setLoading(false);
     }
