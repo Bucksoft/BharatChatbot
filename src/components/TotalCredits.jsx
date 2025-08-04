@@ -35,22 +35,7 @@ const TotalCredits = ({ totalCredits, creditsUsed }) => {
         </p>
       </div>
 
-      {/* <input
-        type="range"
-        min="0"
-        max={+activePlan?.activePlan?.totalCredits}
-        value={usedCredits}
-        readOnly
-        className="w-full accent-green-500"
-      />
 
-      <button
-        onClick={handleUseCredit}
-        className="mt-6 w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition-all disabled:bg-gray-400"
-        disabled={remainingCredits <= 0}
-      >
-        Use Credit
-      </button> */}
     </div>
   );
 };

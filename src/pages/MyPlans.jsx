@@ -23,7 +23,6 @@ const MyPlans = () => {
         const res = await axiosInstance.get("subscription", {
           withCredentials: true,
         });
-        console.log("SUBSCRIPTION ", res);
         if (res.data?.subscription) {
           setActivePlan(res.data?.subscription);
         } else {
@@ -93,6 +92,18 @@ const MyPlans = () => {
                     <h1 className="font-semibold text-green-500 bg-green-500/10 p-1 px-4 rounded-full">
                       {activePlan?.planId?.name}
                     </h1>
+                    <Link
+                      to={"/dashboard/pricing"}
+                      className="bg-[#4cb176] hover:bg-[#57C785] text-white  py-2 rounded-[2rem] transition-all flex items-center gap-3 duration-150 ease-in-out px-8"
+                      style={{
+                        boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                        background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+                      }}
+                    >
+                      <AiTwotoneThunderbolt size={20} />
+                      Upgrade to Pro
+                    </Link>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2">
@@ -202,7 +213,14 @@ const MyPlans = () => {
                 </h1>
 
                 <Link to="/dashboard/pricing">
-                  <button className="bg-green-800 text-white rounded-lg p-2 px-4 mt-2 flex items-center gap-2">
+                  <button
+                    className="bg-[#4cb176] hover:bg-[#57C785] text-white w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out"
+                    style={{
+                      boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                      background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+                    }}
+                  >
                     <AiTwotoneThunderbolt size={20} /> Upgrade to Pro
                   </button>
                 </Link>

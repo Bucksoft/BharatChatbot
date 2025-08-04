@@ -105,7 +105,14 @@ const HomePage = () => {
                 </div>
               ) : (
                 <Link to="/login">
-                  <button className="px-6 py-2 bg-green-800 text-white rounded-full hover:bg-green-700 transition flex items-center gap-2">
+                  <button
+                    className="bg-[#4cb176] hover:bg-[#57C785] text-white w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out"
+                    style={{
+                      boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
+                inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
+                      background: `linear-gradient(to bottom, #57C785, #3a9b5d)`,
+                    }}
+                  >
                     <LuLogIn /> Login
                   </button>
                 </Link>

@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaRegCircleCheck } from "react-icons/fa6";
 import { RiLinksFill } from "react-icons/ri";
 import { FiLink } from "react-icons/fi";
 import { useEffect, useState } from "react";
@@ -55,6 +55,8 @@ const UploadURLPage = () => {
     }
   }
 
+  console.log(allUrls);
+
   useEffect(() => {
     async function getAllUrls() {
       try {
@@ -73,7 +75,7 @@ const UploadURLPage = () => {
       }
     }
     getAllUrls();
-  }, [loading, isDeleted]);
+  }, [loading, isDeleted, activating]);
 
   const handleDeleteUrl = async (url) => {
     try {
@@ -115,8 +117,6 @@ const UploadURLPage = () => {
       setActivating(false);
     }
   };
-
-
 
   return (
     <main className="md:p-8">
@@ -226,20 +226,37 @@ const UploadURLPage = () => {
                   </div>
 
                   <div className="flex items-center justify-between mt-4 space-x-3">
-                    <button
-                      onClick={() => markURLasActive(url?.url)}
-                      className={`w-1/2 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center transition-all duration-150 ${
-                        darkMode
-                          ? "bg-green-600/10 text-green-300 hover:bg-green-500/20"
-                          : "bg-green-100 text-green-700 hover:bg-green-200"
-                      }`}
-                    >
-                      {activating ? (
-                        <LuLoader className="animate-spin text-sm" />
-                      ) : (
-                        "Mark as Active"
-                      )}
-                    </button>
+                    {url?.isActive ? (
+                      <>
+                        <span
+                          className={`w-1/2  py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center transition-all duration-150 ${
+                            darkMode
+                              ? "bg-green-600/10 text-green-300 hover:bg-green-500/20"
+                              : "bg-green-100 text-green-700 hover:bg-green-200"
+                          }`}
+                        >
+                          <FaRegCircleCheck className="mr-2" />
+                          Active
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => markURLasActive(url?.url)}
+                          className={`w-1/2 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center transition-all duration-150 ${
+                            darkMode
+                              ? "bg-green-600/10 text-green-300 hover:bg-green-500/20"
+                              : "bg-green-100 text-green-700 hover:bg-green-200"
+                          }`}
+                        >
+                          {activating ? (
+                            <LuLoader className="animate-spin text-sm" />
+                          ) : (
+                            "Mark as Active"
+                          )}
+                        </button>
+                      </>
+                    )}
 
                     <button
                       onClick={() => handleDeleteUrl(url?.url)}
