@@ -33,10 +33,6 @@ const HomePage = () => {
     fetchAllPlans();
   }, [setAllPlans]);
 
-  
-
-
-
   return (
     <main className="bg-black text-white">
       <section className="min-h-screen relative overflow-hidden">
@@ -95,7 +91,7 @@ const HomePage = () => {
               </a>
             </div>
             <div className="flex items-center gap-3">
-              {!user ? (
+              {user ? (
                 <div className="flex items-center gap-2">
                   <Link
                     to="/dashboard/pricing"
