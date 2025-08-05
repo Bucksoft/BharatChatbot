@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/userStore";
 
-const TotalCredits = ({  totalCredits, creditsUsed }) => {
+const TotalCredits = ({ totalCredits, creditsUsed }) => {
   const [usedCredits, setUsedCredits] = useState(0);
   const { activePlan, darkMode } = useAuthStore();
 

@@ -18,6 +18,8 @@ const PaymentPage = () => {
   const [isActive, setIsActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  console.log("USER ", user);
+
   useEffect(() => {
     async function getPlanById() {
       try {
@@ -26,7 +28,6 @@ const PaymentPage = () => {
           withCredentials: true,
         });
         setCurrentPlan(res.data.plan);
-        console.log(res);
       } catch (error) {
         console.log("ERROR IN FETCHING CURRENT PLAN DETAIlS : ", error);
       } finally {
@@ -66,7 +67,7 @@ const PaymentPage = () => {
               orderId: response.razorpay_order_id,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpaySignature: response.razorpay_signature,
-              userId: user?._id,
+              userId: user?.id,
               planType: currentPlan?.name,
               planId: currentPlan?._id,
               planCredits: currentPlan?.totalCredits,
@@ -111,7 +112,7 @@ const PaymentPage = () => {
         <>
           <section className="w-full rounded-lg md:p-2 h-full flex items-center justify-start px-8 gap-2">
             <div className="w-full ">
-              <div className="flex border-b pb-5 border-b-zinc-200 w-full items-center justify-between">
+              <div className="flex md:flex-row flex-col border-b pb-5 border-b-zinc-200 w-full items-center justify-between">
                 <div className="w-full">
                   <h1
                     className={`text-4xl font-bold my-5 ${
@@ -129,7 +130,7 @@ const PaymentPage = () => {
                   </div>
                 </div>
                 {paymentResponse && (
-                  <div className="w-3/5 h-full p-3 text-right ">
+                  <div className="md:w-3/5 h-full md:p-3 text-right ">
                     <span className="border px-5 py-2 rounded-full text-xs border-green-600 text-green-700">
                       Active plan
                     </span>
@@ -241,10 +242,16 @@ const PaymentPage = () => {
                 </button>
               )}
               {APIvisibility && (
-                <div className="max-w-full bg-zinc-200 p-3 flex items-center justify-between text-xs rounded-lg ">
-                  {paymentResponse?.key?.key.slice(0, 130)}......
+                <div
+                  className={`w-full md:max-w-full ${
+                    darkMode ? "bg-zinc-700" : "bg-zinc-200"
+                  } p-3 flex items-center justify-between text-xs rounded-lg gap-2`}
+                >
+                  <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                    {paymentResponse?.key?.key.slice(0, 130)}......
+                  </div>
                   <button
-                    className="p-1 bg-white rounded-full cursor-pointer"
+                    className="p-1 bg-white text-black rounded-full cursor-pointer shrink-0"
                     onClick={() => {
                       navigator.clipboard.writeText(paymentResponse?.key?.key);
                       toast.success("Copied");
