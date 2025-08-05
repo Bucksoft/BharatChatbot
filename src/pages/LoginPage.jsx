@@ -12,7 +12,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { setUser } = useAuthStore();
+  const { user, setUser } = useAuthStore();
   const navigate = useNavigate();
   // const { setIsLoggedIn } = useStore();
   const login = useAuthStore((state) => state.login);
@@ -64,11 +64,14 @@ const LoginPage = () => {
       const res = await axiosInstance.get("user/me", {
         withCredentials: true,
       });
-      console.log(res);
       setUser(res.data.user);
     }
     getUser();
   }, []);
+
+  if (user) {
+    navigate("/dashboard/pricing");
+  }
 
   return (
     <main className="h-screen w-full grid  md:grid-cols-2 place-items-center  text-black">

@@ -70,9 +70,9 @@ const HomePage = () => {
 
         <div className="w-[90%] max-w-[1200px] mx-auto relative z-10">
           <nav
-            className={`p-4 ${
+            className={`p-4  ${
               isScrolled &&
-              "bg-white/20 backdrop-blur-3xl rounded-full border border-white/30"
+              "md:bg-white/20 backdrop-blur-3xl rounded-full md:border md:border-white/30"
             } fixed w-full max-w-[1200px] mt-2 transition-all duration-150 flex items-center justify-between z-20`}
           >
             <Link
@@ -99,7 +99,7 @@ const HomePage = () => {
                   >
                     Dashboard
                   </Link>
-                  <span className="rounded-full bg-rose-500 text-white text-xs w-8 h-8 flex items-center justify-center">
+                  <span className="rounded-full bg-rose-500 text-white text-xs w-8 h-8 flex items-center justify-center mr-6 md:mr-0">
                     {user?.name[0]?.toUpperCase() || ""}
                   </span>
                 </div>
@@ -158,7 +158,7 @@ const HomePage = () => {
           {featureCards?.map((feature) => (
             <div
               key={feature?.id}
-              className="bg-gradient-to-b from-white/10 to-black border border-white/20 rounded-lg p-6 w-full sm:w-[45%] md:w-[30%] backdrop-blur-lg shadow-lg relative"
+              className="bg-gradient-to-b from-white/10 to-black border border-white/20 rounded-lg mx-6 md:mx-0 p-6 w-full sm:w-[45%] md:w-[30%] backdrop-blur-lg shadow-lg relative"
             >
               <div className="flex items-center gap-4 mb-4">
                 <span className="p-3 bg-green-500/10 rounded-full text-green-500 shadow-green-300/10 shadow-md">
