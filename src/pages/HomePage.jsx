@@ -33,6 +33,10 @@ const HomePage = () => {
     fetchAllPlans();
   }, [setAllPlans]);
 
+  
+
+
+
   return (
     <main className="bg-black text-white">
       <section className="min-h-screen relative overflow-hidden">
@@ -91,7 +95,7 @@ const HomePage = () => {
               </a>
             </div>
             <div className="flex items-center gap-3">
-              {user ? (
+              {!user ? (
                 <div className="flex items-center gap-2">
                   <Link
                     to="/dashboard/pricing"
@@ -106,7 +110,7 @@ const HomePage = () => {
               ) : (
                 <Link to="/login">
                   <button
-                    className="bg-[#4cb176] hover:bg-[#57C785] text-white w-full py-2 rounded-[2rem] transition-all duration-150 ease-in-out"
+                    className="bg-[#4cb176] hover:bg-[#57C785] text-white py-2 rounded-[2rem] transition-all duration-150 ease-in-out md:px-8 px-4 flex items-center gap-3"
                     style={{
                       boxShadow: `inset 0 4px 6px rgba(255, 255, 255, 0.15), 
                 inset 0 -4px 6px rgba(0, 0, 0, 0.5)`,
