@@ -90,7 +90,13 @@ const PricingPage = () => {
 
                 {/* popular tag */}
                 {plan?.name.toLowerCase() === "pro" && (
-                  <p className="absolute bg-[rgb(87,199,133)] right-5 top-3 text-white rounded-4xl p-1 px-2 text-[10px]">
+                  <p
+                    className={`absolute bg-[rgb(87,199,133)] right-5 top-3 text-white rounded-4xl p-1 px-2 text-[10px]  ${
+                      activePlan?.status === "active" &&
+                      plan?.name === activePlan?.planId?.name &&
+                      "right-30"
+                    } `}
+                  >
                     Popular
                   </p>
                 )}
