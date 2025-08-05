@@ -38,6 +38,8 @@ const MyPlans = () => {
     getMySubscription();
   }, []);
 
+  console.log("ACTIVE PLAN ->", activePlan);
+
   return (
     <>
       {loading ? (

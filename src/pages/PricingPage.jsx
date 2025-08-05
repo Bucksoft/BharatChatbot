@@ -1,7 +1,5 @@
-import { BiCheck } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../config/axios";
-import SelectPlan from "../components/SelectPlan";
 import { useAuthStore } from "../store/userStore";
 import { TbReceiptRupee } from "react-icons/tb";
 import { RiFireFill } from "react-icons/ri";
@@ -32,6 +30,8 @@ const PricingPage = () => {
     }
     fetchAllPlans();
   }, []);
+
+  console.log("ACTIVE PLAN IN PRICING PAGE : ", activePlan);
 
   return (
     <main>
