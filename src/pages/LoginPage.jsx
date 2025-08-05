@@ -65,13 +65,12 @@ const LoginPage = () => {
         withCredentials: true,
       });
       setUser(res.data.user);
+      if (res.data.user) {
+        navigate("/dashboard/pricing");
+      }
     }
     getUser();
   }, []);
-
-  if (user) {
-    navigate("/dashboard/pricing");
-  }
 
   return (
     <main className="h-screen w-full grid  md:grid-cols-2 place-items-center  text-black">
