@@ -17,9 +17,8 @@ const UploadURLPage = () => {
   const [deleting, setDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [fetchingUrls, setFetchingUrls] = useState(false);
+  const [deletingUrl, setDeletingUrl] = useState(false);
   const { activePlan, allUrls, setAllUrls, darkMode } = useAuthStore();
-
-  console.log(activePlan);
 
   async function handleUrlSubmit(e) {
     e.preventDefault();
@@ -32,7 +31,6 @@ const UploadURLPage = () => {
       );
       const credits_per_unit = urlFeature?.perUnitCreditCost;
 
-      console.log("Sending payload:", { url, planId, credits_per_unit });
       if (!planId || !credits_per_unit) {
         toast.error("Missing plan details. Please check your subscription.");
         setLoading(false);
@@ -55,8 +53,6 @@ const UploadURLPage = () => {
     }
   }
 
-  console.log(allUrls);
-
   useEffect(() => {
     async function getAllUrls() {
       try {
@@ -64,7 +60,6 @@ const UploadURLPage = () => {
         const res = await axiosInstance.get("chat/all", {
           withCredentials: true,
         });
-        console.log(res);
         if (res.data.success) {
           setAllUrls(res.data.allUrls);
         }
@@ -80,6 +75,7 @@ const UploadURLPage = () => {
   const handleDeleteUrl = async (url) => {
     try {
       setIsDeleted(false);
+      setDeletingUrl(url);
       setDeleting(true);
       const res = await axiosInstance.delete(`chat/url`, {
         data: { url },
@@ -267,7 +263,7 @@ const UploadURLPage = () => {
                       }`}
                       title="Delete"
                     >
-                      {deleting ? (
+                      {deleting && deletingUrl === url?.url ? (
                         <LuLoaderCircle className="animate-spin text-sm" />
                       ) : (
                         <>

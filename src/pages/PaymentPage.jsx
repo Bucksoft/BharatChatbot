@@ -18,8 +18,6 @@ const PaymentPage = () => {
   const [isActive, setIsActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log("USER ", user);
-
   useEffect(() => {
     async function getPlanById() {
       try {

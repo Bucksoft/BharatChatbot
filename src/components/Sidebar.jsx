@@ -28,8 +28,6 @@ const Sidebar = () => {
     navigate("/login");
   }
 
-  console.log(user);
-
   return (
     <main
       className={`rounded-3xl min-h-full text-sm overflow-hidden border-r relative  ${
