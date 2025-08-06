@@ -67,7 +67,7 @@ const PaymentPage = () => {
               orderId: response.razorpay_order_id,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpaySignature: response.razorpay_signature,
-              userId: user?.id,
+              userId: user?._id,
               planType: currentPlan?.name,
               planId: currentPlan?._id,
               planCredits: currentPlan?.totalCredits,
