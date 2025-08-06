@@ -17,7 +17,8 @@ const UploadURLPage = () => {
   const [deleting, setDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [fetchingUrls, setFetchingUrls] = useState(false);
-  const [deletingUrl, setDeletingUrl] = useState(false);
+  const [deletingUrl, setDeletingUrl] = useState();
+  const [activatingUrl, setActivatingUrl] = useState();
   const { activePlan, allUrls, setAllUrls, darkMode } = useAuthStore();
 
   async function handleUrlSubmit(e) {
@@ -95,6 +96,7 @@ const UploadURLPage = () => {
   const markURLasActive = async (url) => {
     try {
       setActivating(true);
+      setActivatingUrl(url);
       const res = await axiosInstance.put(
         "chat/url/active",
         {
@@ -245,7 +247,7 @@ const UploadURLPage = () => {
                               : "bg-green-100 text-green-700 hover:bg-green-200"
                           }`}
                         >
-                          {activating ? (
+                          {activating && activatingUrl === url?.url ? (
                             <LuLoader className="animate-spin text-sm" />
                           ) : (
                             "Mark as Active"
