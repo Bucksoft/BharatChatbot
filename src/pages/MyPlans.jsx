@@ -102,7 +102,10 @@ const MyPlans = () => {
                       }}
                     >
                       <AiTwotoneThunderbolt size={20} />
-                      Upgrade to Pro
+                      Upgrade to{" "}
+                      {activePlan?.planId?.name === "Pro"
+                        ? "Enterprise"
+                        : "Pro"}
                     </Link>
                   </div>
 

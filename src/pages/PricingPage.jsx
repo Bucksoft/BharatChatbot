@@ -60,8 +60,7 @@ const PricingPage = () => {
               Plans & Pricing
             </h1>
             <p className=" font-normal text-lg mt-2">
-              Select the perfect plan for your needs. Upgrade or downgrade at
-              any time.
+              Select the perfect plan for your needs.{" "}
             </p>
           </div>
 
