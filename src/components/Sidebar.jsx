@@ -7,9 +7,10 @@ import toast from "react-hot-toast";
 import { BsRobot } from "react-icons/bs";
 import { CiLight } from "react-icons/ci";
 import { LuSunMoon } from "react-icons/lu";
+import { ImCross } from "react-icons/im";
 
 const Sidebar = () => {
-  const { user, logout, setDarkMode, darkMode } = useAuthStore();
+  const { user, logout, setDarkMode, darkMode, activePlan } = useAuthStore();
   const navigate = useNavigate();
   async function logoutUser() {
     try {
@@ -28,7 +29,7 @@ const Sidebar = () => {
     navigate("/login");
   }
 
-  console.log(user);
+  console.log(activePlan);
 
   return (
     <main
@@ -102,42 +103,56 @@ const Sidebar = () => {
         ))}
       </div>
 
-      <div
-        className={`absolute flex flex-col gap-2 text-xs ${
-          darkMode
-            ? "bg-white/10 border-white/20"
-            : "bg-black/10 border-white/10"
-        }  backdrop-blur-md border-t  bottom-0 pt-2 text-center w-full text-white`}
-      >
-        <div
-          className={`flex items-center gap-1 pl-3 ${
-            darkMode ? "text-white" : "text-black"
-          } `}
-        >
-          <div className="w-6 h-6 rounded-full bg-white/50 flex items-center justify-center overflow-hidden">
-            {user?.profilePicture ? (
-              <>
-                <img
-                  src={user?.profilePicture}
-                  loading="lazy"
-                  width={20}
-                  className="rounded-full object-cover"
-                />
-              </>
-            ) : (
-              <span className="font-semibold">
-                {user?.name[0].toUpperCase()}
-              </span>
-            )}
+      <div className="absolute bottom-0 w-full">
+        {/* Low credits alert message */}
+        {activePlan?.creditsLeft < 20 && (
+          <div className="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg flex items-center gap-3 text-sm mb-4 mx-2">
+            <ImCross />
+
+            <span>
+              <strong>Low Credits:</strong> You have only{" "}
+              <b>{activePlan?.creditsLeft}</b> credits left.
+            </span>
           </div>
-          <span className="truncate">{user?.email}</span>
-        </div>
-        <button
-          onClick={logoutUser}
-          className="bg-green-800/90 py-2 flex items-center justify-center gap-2 hover:bg-green-700 transition-all ease-in-out duration-200 font-medium cursor-pointer text-sm text-white rounded-b-md"
+        )}
+
+        <div
+          className={` flex flex-col gap-2 text-xs ${
+            darkMode
+              ? "bg-white/10 border-white/20"
+              : "bg-black/10 border-white/10"
+          }  backdrop-blur-md border-t   pt-2 text-center  text-white`}
         >
-          <LuLogOut /> Logout
-        </button>
+          <div
+            className={`flex items-center   gap-1 pl-3 ${
+              darkMode ? "text-white" : "text-black"
+            } `}
+          >
+            <div className="w-6 h-6 rounded-full bg-white/50 flex items-center justify-center overflow-hidden">
+              {user?.profilePicture ? (
+                <>
+                  <img
+                    src={user?.profilePicture}
+                    loading="lazy"
+                    width={20}
+                    className="rounded-full object-cover"
+                  />
+                </>
+              ) : (
+                <span className="font-semibold">
+                  {user?.name[0].toUpperCase()}
+                </span>
+              )}
+            </div>
+            <span className="truncate">{user?.email}</span>
+          </div>
+          <button
+            onClick={logoutUser}
+            className="bg-green-800/90 py-2 flex items-center justify-center gap-2 hover:bg-green-700 transition-all ease-in-out duration-200 font-medium cursor-pointer text-sm text-white rounded-b-md"
+          >
+            <LuLogOut /> Logout
+          </button>
+        </div>
       </div>
     </main>
   );

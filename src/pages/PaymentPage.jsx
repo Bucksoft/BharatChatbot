@@ -18,8 +18,6 @@ const PaymentPage = () => {
   const [isActive, setIsActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log("USER ", user);
-
   useEffect(() => {
     async function getPlanById() {
       try {
@@ -67,7 +65,7 @@ const PaymentPage = () => {
               orderId: response.razorpay_order_id,
               razorpayPaymentId: response.razorpay_payment_id,
               razorpaySignature: response.razorpay_signature,
-              userId: user?.id,
+              userId: user?._id,
               planType: currentPlan?.name,
               planId: currentPlan?._id,
               planCredits: currentPlan?.totalCredits,
